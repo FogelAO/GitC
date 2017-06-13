@@ -15,7 +15,7 @@ import makarglavanar.com.github.gitc.ui.users.user_info.UserInfoScreenContract.V
 
 
 class UserInfoActivity : AppCompatActivity(), View {
-    val presenter: Presenter = UserInfoPresenter(GitCApp.gitService)
+    private val presenter: Presenter = UserInfoPresenter(GitCApp.gitService)
     lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,9 @@ class UserInfoActivity : AppCompatActivity(), View {
         nameView.text = user.name
         followersView.text = user.followers
         createdDayView.text = user.created_at
+
         if (user.email == null) {
+            emailIcon.visibility = VISIBLE
             emailView.visibility = VISIBLE
             emailView.text = user.email
             emailView.visibility = VISIBLE

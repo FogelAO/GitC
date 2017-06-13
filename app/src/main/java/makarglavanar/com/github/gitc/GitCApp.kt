@@ -14,7 +14,7 @@ class GitCApp : Application() {
     }
 
     companion object {
-       val gitService: GitHubService = Retrofit.Builder()
+        val gitService: GitHubService = Retrofit.Builder()
                 .baseUrl("https://api.github.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

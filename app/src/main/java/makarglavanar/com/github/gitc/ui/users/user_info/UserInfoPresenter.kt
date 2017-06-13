@@ -10,7 +10,6 @@ import makarglavanar.com.github.gitc.web.GitHubService
 
 
 class UserInfoPresenter(val gitHubService: GitHubService) : Presenter {
-
     val subscriptions = CompositeDisposable()
     lateinit var view: View
 
