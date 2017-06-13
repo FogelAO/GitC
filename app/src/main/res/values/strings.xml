@@ -1,0 +1,12 @@
+<resources>
+	<string name="app_name">GitC</string>
+	<string name="navigation_item_gists">Gists</string>
+	<string name="navigation_item_repos">Repos</string>
+	<string name="navigation_item_users">Users</string>
+	<string name="company">Company</string>
+	<string name="location">Location</string>
+	<string name="followers">Followers</string>
+	<string name="registered_at">Registered at</string>
+	<string name="error_loading_user_by_login">Error occurred while loading user</string>
+	<string name="error_loading_users_by_login">Error loading users</string>
+</resources>

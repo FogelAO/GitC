@@ -1,0 +1,54 @@
+<android.support.design.widget.CoordinatorLayout android:id="@+id/container"
+                                                 xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="@color/defaultBackground"
+                                                 tools:context=".ui.MainActivity">
+
+	<android.support.design.widget.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<android.support.v7.widget.Toolbar
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="54dp"
+			android:theme="@style/MainToolbarTheme"
+			android:weightSum="1">
+
+			<android.support.v7.widget.SearchView
+				android:id="@+id/searchView"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+		</android.support.v7.widget.Toolbar>
+	</android.support.design.widget.AppBarLayout>
+
+	<FrameLayout
+		android:id="@+id/content"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginBottom="56dp"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+	<android.support.design.widget.BottomNavigationView
+		android:id="@+id/navigation"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom"
+		android:background="@color/colorNavigationBarBackground"
+		app:menu="@menu/menu_navigation"/>
+
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<TextView
+			android:id="@+id/text"
+			android:layout_width="wrap_content"
+
+			android:layout_height="wrap_content"/>
+	</android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>
