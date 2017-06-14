@@ -8,9 +8,11 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView;
+import com.jakewharton.rxbinding2.view.RxView;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,11 +36,16 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		searchView = (SearchView) findViewById(R.id.searchView);
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		contentView = (FrameLayout) findViewById(R.id.content);
 		bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 		bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
 		bottomNavigationView.setOnNavigationItemReselectedListener(this::onNavigationItemSelected);
+		findViewById(R.id.loginView).setOnClickListener(this::startLoginActivity);
+		subscriptions.add(
+				RxView.clicks(findViewById(R.id.loginView))
+						.subscribe(this::startLoginActivity));
 
 		BaseMainFragment fragment = (BaseMainFragment) getSupportFragmentManager().findFragmentById(R.id.content);
 		if (fragment == null) {
@@ -49,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 			bottomNavigationView.setSelectedItemId(fragment.getTabItemId());
 		}
 
-		searchView = (SearchView) findViewById(R.id.searchView);
 		subscriptions.add(RxSearchView.queryTextChanges(searchView)
 				.debounce(300, TimeUnit.MILLISECONDS)
 				.filter(charSequence -> charSequence.length() > 1)
@@ -64,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
 		subscriptions.dispose();
 	}
 
+	private void startLoginActivity(Object o) {
+
+	}
+
 	private boolean onNavigationItemSelected(MenuItem menuItem) {
 		Tab selectedTab;
 
@@ -74,13 +84,14 @@ public class MainActivity extends AppCompatActivity {
 			case R.id.repos:
 				selectedTab = Tab.REPOS;
 				break;
-			case R.id.gists:
-				selectedTab = Tab.GISTS;
+			case R.id.issues:
+				selectedTab = Tab.ISSUES;
 				break;
 			default:
 				throw new IllegalStateException("Unsupported tab " + menuItem.getTitle());
 		}
-
+		searchView.setIconified(true);
+		searchView.clearFocus();
 		currentFragment = BaseMainFragment.newInstance(selectedTab);
 		replaceOrSetContentFragment(currentFragment);
 		return true;

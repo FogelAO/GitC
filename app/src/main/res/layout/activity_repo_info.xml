@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="8dp"
+              android:orientation="vertical">
+
+	<com.devspark.robototextview.widget.RobotoTextView
+		android:id="@+id/name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="20sp"
+		tools:text="Window"/>
+
+	<com.devspark.robototextview.widget.RobotoTextView
+		android:id="@+id/ownerLogin"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="18sp"
+		tools:text="Chvin"/>
+
+	<com.devspark.robototextview.widget.RobotoTextView
+		android:id="@+id/description"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="14sp"
+		android:visibility="gone"
+		tools:text="Use React, Redux, Immutable to code Tetris"
+		tools:visibility="visible"/>
+
+	<com.devspark.robototextview.widget.RobotoTextView
+		android:id="@+id/createdDay"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		tools:text="2016-12-20"/>
+
+	<com.devspark.robototextview.widget.RobotoTextView
+		android:id="@+id/language"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:visibility="gone"
+		tools:text="JavaScript"
+		tools:visibility="visible"/>
+
+	<com.devspark.robototextview.widget.RobotoTextView
+		android:id="@+id/watchers"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		tools:text="2389"/>
+
+	<com.devspark.robototextview.widget.RobotoTextView
+		android:id="@+id/stargazersCount"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		tools:text="2389"/>
+
+</LinearLayout>

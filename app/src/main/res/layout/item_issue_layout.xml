@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:orientation="vertical">
+
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/titleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        app:typeface="roboto_regular"
+        tools:text="Windows" />
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/userLoginView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:typeface="roboto_regular"
+        android:layout_marginLeft="8dp"
+        tools:text="mattn" />
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/createdDayView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        tools:text="2017-06-14" />
+
+</LinearLayout>
