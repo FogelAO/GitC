@@ -1,17 +1,16 @@
 package makarglavanar.com.github.gitc.ui.users.user_info
 
 import makarglavanar.com.github.gitc.entities.User
+import makarglavanar.com.github.gitc.ui.base_tab.MvpView
 
 
 interface UserInfoScreenContract {
 
-    interface View {
+    interface View : MvpView {
         fun showUser(user: User)
-        fun showError(t: Throwable)
     }
 
     interface Presenter {
-        fun attach(view: View)
         fun deattach()
         fun loadUser(login: String)
     }

@@ -15,8 +15,10 @@ import makarglavanar.com.github.gitc.entities.Repository;
 
 public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.ViewHolder> {
 	private List<Repository> repos;
+	private OnRepositoryClickListener listener;
 
-	public ReposAdapter() {
+	public ReposAdapter(OnRepositoryClickListener listener) {
+		this.listener = listener;
 		this.repos = new ArrayList<>();
 	}
 
@@ -28,7 +30,7 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.ViewHolder> 
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_repo_layout, parent, false);
-		return new ViewHolder(view);
+		return new ViewHolder(view, listener);
 	}
 
 	@Override
@@ -43,17 +45,22 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.ViewHolder> 
 	}
 
 	class ViewHolder extends RecyclerView.ViewHolder {
-		RobotoTextView nameView;
+		private RobotoTextView nameView;
 		Repository repository;
 
-		public ViewHolder(View itemView) {
+		public ViewHolder(View itemView, OnRepositoryClickListener listener) {
 			super(itemView);
 			nameView = (RobotoTextView) itemView.findViewById(R.id.nameView);
+			nameView.setOnClickListener(v -> listener.onClick(repository));
 		}
 
 		void bind(Repository repository) {
 			this.repository = repository;
 			nameView.setText(repository.getName());
 		}
+	}
+
+	interface OnRepositoryClickListener {
+		void onClick(Repository repository);
 	}
 }

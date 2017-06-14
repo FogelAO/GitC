@@ -19,7 +19,9 @@ class IssuesPresenter(val gitHubService: GitHubService) : MvpPresenter<IssuesVie
                         .getIssuesByTerms(terms)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnError({ t -> view.showError(t) })
-                        .subscribe({ issuesResponse -> view.showIssues(issuesResponse.items) }))
+                        .subscribe(
+                                { issuesResponse -> view.showIssues(issuesResponse.items) },
+                                { t -> view.showError(t) }
+                        ))
     }
 }

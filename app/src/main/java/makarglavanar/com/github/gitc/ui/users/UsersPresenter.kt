@@ -15,8 +15,10 @@ class UsersPresenter(val gitHubService: GitHubService) : MvpPresenter<UsersView>
                 .getUsersByName(name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError({ t -> view.showError(t) })
-                .subscribe({ usersResponse -> view.showUsers(usersResponse.items) }))
+                .subscribe(
+                        { usersResponse -> view.showUsers(usersResponse.items) },
+                        { t -> view.showError(t) }
+                ))
     }
 
     override fun deattach() {

@@ -1,5 +1,6 @@
 package makarglavanar.com.github.gitc.ui.repos
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -13,11 +14,12 @@ import makarglavanar.com.github.gitc.GitCApp
 import makarglavanar.com.github.gitc.R
 import makarglavanar.com.github.gitc.entities.Repository
 import makarglavanar.com.github.gitc.ui.base_tab.BaseMainFragment
+import makarglavanar.com.github.gitc.ui.repos.repo_info.RepositoryInfoActivity
 import makarglavanar.com.github.gitc.web.GitHubService
 import javax.inject.Inject
 
-class ReposFragment : BaseMainFragment<ReposView, ReposPresenter>(), ReposView {
-    private val adapter = ReposAdapter()
+class ReposFragment : BaseMainFragment<ReposView, ReposPresenter>(), ReposView, ReposAdapter.OnRepositoryClickListener {
+    private val adapter = ReposAdapter(this)
     @Inject lateinit var gitHubService: GitHubService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,6 +59,12 @@ class ReposFragment : BaseMainFragment<ReposView, ReposPresenter>(), ReposView {
         Log.w(TAG, "Loading repos error", t)
         Toast.makeText(context, "Error Loading repositories", Toast.LENGTH_LONG).show()
 
+    }
+
+    override fun onClick(repository: Repository) {
+        val intent = Intent(context, RepositoryInfoActivity::class.java)
+        intent.putExtra("repo", repository)
+        startActivity(intent)
     }
 
     companion object {

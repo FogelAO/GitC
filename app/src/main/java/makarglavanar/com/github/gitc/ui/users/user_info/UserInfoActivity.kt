@@ -24,8 +24,7 @@ class UserInfoActivity : AppCompatActivity(), View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         GitCApp.appComponent.inject(this)
-        presenter = UserInfoPresenter(gitHubService)
-        presenter.attach(this)
+        presenter = UserInfoPresenter(this, gitHubService)
 
         setContentView(R.layout.activity_user_info)
         user = intent.getSerializableExtra("user") as User
@@ -73,6 +72,7 @@ class UserInfoActivity : AppCompatActivity(), View {
     override fun showError(t: Throwable) {
         Log.w("Loading user error", t)
         toast(R.string.error_loading_user_by_login.toString())
+        onBackPressed()
     }
 
     companion object {

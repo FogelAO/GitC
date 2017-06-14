@@ -16,9 +16,10 @@ class ReposPresenter(val gitHubService: GitHubService) : MvpPresenter<ReposView>
                         .getReposByName(name)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnError({ t -> view.showError(t) })
-                        .subscribe({ reposResponse -> view.showRepos(reposResponse.items) })
-        )
+                        .subscribe(
+                                { reposResponse -> view.showRepos(reposResponse.items) },
+                                { t -> view.showError(t) }
+                        ))
     }
 
     override fun deattach() {

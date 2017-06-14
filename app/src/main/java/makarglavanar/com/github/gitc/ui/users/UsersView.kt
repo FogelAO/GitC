@@ -7,5 +7,5 @@ import makarglavanar.com.github.gitc.ui.base_tab.MvpView
 interface UsersView : MvpView {
     fun showUsers(users: List<User>)
 
-    fun showError(t: Throwable)
+    override fun showError(t: Throwable)
 }

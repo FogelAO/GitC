@@ -9,13 +9,8 @@ import makarglavanar.com.github.gitc.ui.users.user_info.UserInfoScreenContract.V
 import makarglavanar.com.github.gitc.web.GitHubService
 
 
-class UserInfoPresenter(val gitHubService: GitHubService) : Presenter {
+class UserInfoPresenter(val view: View, val gitHubService: GitHubService) : Presenter {
     val subscriptions = CompositeDisposable()
-    lateinit var view: View
-
-    override fun attach(view: View) {
-        this.view = view
-    }
 
     override fun deattach() {
         subscriptions.dispose()
@@ -26,7 +21,9 @@ class UserInfoPresenter(val gitHubService: GitHubService) : Presenter {
                 .getUserByUserLogin(login)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError({ t -> view.showError(t) })
-                .subscribe({ user: User -> view.showUser(user) }))
+                .subscribe(
+                        { user: User -> view.showUser(user) },
+                        { t -> view.showError(t) }
+                ))
     }
 }

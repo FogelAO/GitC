@@ -3,6 +3,7 @@ package makarglavanar.com.github.gitc
 import dagger.Component
 import makarglavanar.com.github.gitc.ui.issues.IssuesFragment
 import makarglavanar.com.github.gitc.ui.repos.ReposFragment
+import makarglavanar.com.github.gitc.ui.repos.repo_info.RepositoryInfoActivity
 import makarglavanar.com.github.gitc.ui.users.UsersFragment
 import makarglavanar.com.github.gitc.ui.users.user_info.UserInfoActivity
 import makarglavanar.com.github.gitc.web.GitServiceModule
@@ -15,4 +16,5 @@ interface AppComponent {
     fun inject(userInfoActivity: UserInfoActivity)
     fun inject(reposFragment: ReposFragment)
     fun inject(issuesFragment: IssuesFragment)
+    fun inject(repositoryInfoActivity: RepositoryInfoActivity)
 }

@@ -6,5 +6,4 @@ import makarglavanar.com.github.gitc.ui.base_tab.MvpView
 interface IssuesView : MvpView {
 
     fun showIssues(issues: List<Issue>)
-    fun showError(t: Throwable)
 }

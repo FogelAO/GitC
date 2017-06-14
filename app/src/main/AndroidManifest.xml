@@ -18,6 +18,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name=".ui.users.user_info.UserInfoActivity"/>
+		<activity android:name=".ui.repos.repo_info.RepositoryInfoActivity"/>
 	</application>
 
 </manifest>
