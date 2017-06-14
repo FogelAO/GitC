@@ -12,14 +12,19 @@ import makarglavanar.com.github.gitc.entities.User
 import makarglavanar.com.github.gitc.toast
 import makarglavanar.com.github.gitc.ui.users.user_info.UserInfoScreenContract.Presenter
 import makarglavanar.com.github.gitc.ui.users.user_info.UserInfoScreenContract.View
+import makarglavanar.com.github.gitc.web.GitHubService
+import javax.inject.Inject
 
 
 class UserInfoActivity : AppCompatActivity(), View {
-    private val presenter: Presenter = UserInfoPresenter(GitCApp.gitService)
+    @Inject lateinit var gitHubService: GitHubService
+    private lateinit var presenter: Presenter
     lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        GitCApp.appComponent.inject(this)
+        presenter = UserInfoPresenter(gitHubService)
         presenter.attach(this)
 
         setContentView(R.layout.activity_user_info)
@@ -42,21 +47,21 @@ class UserInfoActivity : AppCompatActivity(), View {
         followersView.text = user.followers
         createdDayView.text = user.created_at
 
-        if (user.email == null) {
+        if (user.email != null) {
             emailIcon.visibility = VISIBLE
             emailView.visibility = VISIBLE
             emailView.text = user.email
             emailView.visibility = VISIBLE
         }
 
-        if (user.company == null) {
+        if (user.company != null) {
             dividerView.visibility = VISIBLE
             companyView.visibility = VISIBLE
             companyView.text = user.company
             companyIcon.visibility = VISIBLE
         }
 
-        if (user.location == null) {
+        if (user.location != null) {
             dividerView.visibility = VISIBLE
             locationView.visibility = VISIBLE
             locationView.text = user.location
