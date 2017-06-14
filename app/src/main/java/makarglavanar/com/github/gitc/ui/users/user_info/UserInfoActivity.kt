@@ -45,7 +45,7 @@ class UserInfoActivity : AppCompatActivity(), View {
         toolbar.title = user.login
         nameView.text = user.name
         followersView.text = user.followers
-        createdDayView.text = user.created_at
+        createdDayView.text = user.getFormattedDate()
 
         if (user.email != null) {
             emailIcon.visibility = VISIBLE

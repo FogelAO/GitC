@@ -2,6 +2,7 @@ package makarglavanar.com.github.gitc.web
 
 import android.support.annotation.NonNull
 import io.reactivex.Single
+import makarglavanar.com.github.gitc.entities.IssuesResponse
 import makarglavanar.com.github.gitc.entities.RepositoriesResponse
 import makarglavanar.com.github.gitc.entities.User
 import makarglavanar.com.github.gitc.entities.UsersResponse
@@ -24,4 +25,7 @@ interface GitHubService {
 
     @GET("search/repositories")
     fun getReposByName(@Query("q") name: String): Single<RepositoriesResponse>
+
+    @GET("search/issues")
+    fun getIssuesByTerms(@Query("q") terms: String): Single<IssuesResponse>
 }

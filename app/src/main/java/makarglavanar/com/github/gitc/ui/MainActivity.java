@@ -8,6 +8,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView;
@@ -21,75 +22,80 @@ import makarglavanar.com.github.gitc.ui.base_tab.BaseMainFragment;
 import makarglavanar.com.github.gitc.ui.base_tab.Tab;
 
 public class MainActivity extends AppCompatActivity {
-	private static final String TAG = MainActivity.class.getSimpleName();
-	private final CompositeDisposable subscriptions = new CompositeDisposable();
-	private BaseMainFragment currentFragment;
-	Toolbar toolbar;
-	FrameLayout contentView;
-	SearchView searchView;
-	BottomNavigationView bottomNavigationView;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private final CompositeDisposable subscriptions = new CompositeDisposable();
+    private BaseMainFragment currentFragment;
+    Toolbar toolbar;
+    FrameLayout contentView;
+    SearchView searchView;
+    BottomNavigationView bottomNavigationView;
 
-	@Override
-	public void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-		toolbar = (Toolbar) findViewById(R.id.toolbar);
-		contentView = (FrameLayout) findViewById(R.id.content);
-		bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
-		bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
-		bottomNavigationView.setOnNavigationItemReselectedListener(this::onNavigationItemSelected);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        contentView = (FrameLayout) findViewById(R.id.content);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+        bottomNavigationView.setOnNavigationItemReselectedListener(this::onNavigationItemSelected);
+        findViewById(R.id.loginView).setOnClickListener(this::startLoginActivity);
 
-		BaseMainFragment fragment = (BaseMainFragment) getSupportFragmentManager().findFragmentById(R.id.content);
-		if (fragment == null) {
-			replaceOrSetContentFragment(BaseMainFragment.newInstance(Tab.USERS));
-			bottomNavigationView.setSelectedItemId(R.id.users);
-		} else {
-			currentFragment = fragment;
-			bottomNavigationView.setSelectedItemId(fragment.getTabItemId());
-		}
+        BaseMainFragment fragment = (BaseMainFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        if (fragment == null) {
+            replaceOrSetContentFragment(BaseMainFragment.newInstance(Tab.USERS));
+            bottomNavigationView.setSelectedItemId(R.id.users);
+        } else {
+            currentFragment = fragment;
+            bottomNavigationView.setSelectedItemId(fragment.getTabItemId());
+        }
 
-		searchView = (SearchView) findViewById(R.id.searchView);
-		subscriptions.add(RxSearchView.queryTextChanges(searchView)
-				.debounce(300, TimeUnit.MILLISECONDS)
-				.filter(charSequence -> charSequence.length() > 1)
-				.doOnError(throwable -> Log.w(TAG, "Error occurred while searching", throwable))
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(charSequence -> currentFragment.load(charSequence.toString())));
-	}
+        searchView = (SearchView) findViewById(R.id.searchView);
+        subscriptions.add(RxSearchView.queryTextChanges(searchView)
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .filter(charSequence -> charSequence.length() > 1)
+                .doOnError(throwable -> Log.w(TAG, "Error occurred while searching", throwable))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(charSequence -> currentFragment.load(charSequence.toString())));
+    }
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		subscriptions.dispose();
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        subscriptions.dispose();
+    }
 
-	private boolean onNavigationItemSelected(MenuItem menuItem) {
-		Tab selectedTab;
+    private void startLoginActivity(View view) {
 
-		switch (menuItem.getItemId()) {
-			case R.id.users:
-				selectedTab = Tab.USERS;
-				break;
-			case R.id.repos:
-				selectedTab = Tab.REPOS;
-				break;
-			case R.id.gists:
-				selectedTab = Tab.GISTS;
-				break;
-			default:
-				throw new IllegalStateException("Unsupported tab " + menuItem.getTitle());
-		}
+    }
 
-		currentFragment = BaseMainFragment.newInstance(selectedTab);
-		replaceOrSetContentFragment(currentFragment);
-		return true;
-	}
+    private boolean onNavigationItemSelected(MenuItem menuItem) {
+        Tab selectedTab;
 
-	private void replaceOrSetContentFragment(BaseMainFragment fragment) {
-		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.content, fragment)
-				.commit();
-		currentFragment = fragment;
-	}
+        switch (menuItem.getItemId()) {
+            case R.id.users:
+                selectedTab = Tab.USERS;
+                break;
+            case R.id.repos:
+                selectedTab = Tab.REPOS;
+                break;
+            case R.id.issues:
+                selectedTab = Tab.ISSUES;
+                break;
+            default:
+                throw new IllegalStateException("Unsupported tab " + menuItem.getTitle());
+        }
+
+        currentFragment = BaseMainFragment.newInstance(selectedTab);
+        replaceOrSetContentFragment(currentFragment);
+        return true;
+    }
+
+    private void replaceOrSetContentFragment(BaseMainFragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content, fragment)
+                .commit();
+        currentFragment = fragment;
+    }
 }

@@ -12,4 +12,11 @@ data class Repository(val id: String,
                       val language: String,
                       val watchers: String,
                       val open_issues: String,
-                      val watchers_count: String) : Serializable
+                      val watchers_count: String) : Serializable {
+    fun getFormattedDate(): String {
+        val tempData = StringBuilder()
+        for (i in 0..9)
+            tempData.append(created_at[i])
+        return tempData.toString()
+    }
+}
