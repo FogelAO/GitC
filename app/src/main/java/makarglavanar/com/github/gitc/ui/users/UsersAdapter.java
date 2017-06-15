@@ -8,13 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import makarglavanar.com.github.gitc.R;
-
 import com.bumptech.glide.RequestManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import makarglavanar.com.github.gitc.R;
 import makarglavanar.com.github.gitc.entities.User;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
@@ -58,7 +57,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 		private ImageView imageView;
 		User user;
 
-		public ViewHolder(View itemView, OnUserClickListener listener) {
+		ViewHolder(View itemView, OnUserClickListener listener) {
 			super(itemView);
 
 			loginView = (TextView) itemView.findViewById(R.id.loginView);

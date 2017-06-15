@@ -26,4 +26,16 @@ class IssueInfoPresenter(val view: View, val gitHubService: GitHubService) : Pre
                         )
         )
     }
+
+    override fun loadIssueComments(url: String?) {
+        if (url != null)
+            subscriptions.add(
+                    gitHubService.getIssueCommentsByUrl(url)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    { comments -> view.showComments(comments.items) },
+                                    { t -> view.showError(t) })
+            )
+    }
 }

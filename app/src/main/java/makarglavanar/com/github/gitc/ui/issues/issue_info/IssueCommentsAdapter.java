@@ -14,18 +14,22 @@ import java.util.List;
 
 import makarglavanar.com.github.gitc.R;
 import makarglavanar.com.github.gitc.entities.IssueComment;
+import makarglavanar.com.github.gitc.entities.User;
 
 public class IssueCommentsAdapter extends RecyclerView.Adapter<IssueCommentsAdapter.ViewHolder> {
     private List<IssueComment> comments;
     private final RequestManager requestManager;
+    private final OnUserClickListener listener;
 
-    public IssueCommentsAdapter(RequestManager requestManager) {
+    public IssueCommentsAdapter(RequestManager requestManager, OnUserClickListener listener) {
         this.requestManager = requestManager;
+        this.listener = listener;
         comments = new ArrayList<>();
     }
 
     public void add(List<IssueComment> comments) {
         this.comments = comments;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -46,6 +50,10 @@ public class IssueCommentsAdapter extends RecyclerView.Adapter<IssueCommentsAdap
         return comments.size();
     }
 
+    public void clear() {
+        comments.clear();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         private IssueComment comment;
         private RobotoTextView loginView;
@@ -56,6 +64,7 @@ public class IssueCommentsAdapter extends RecyclerView.Adapter<IssueCommentsAdap
         ViewHolder(View itemView) {
             super(itemView);
             loginView = (RobotoTextView) itemView.findViewById(R.id.userLogin);
+            loginView.setOnClickListener(v -> listener.onClick(comment.getUser()));
             bodyView = (RobotoTextView) itemView.findViewById(R.id.body);
             dateView = (RobotoTextView) itemView.findViewById(R.id.createdDay);
             userAvatarView = (ImageView) itemView.findViewById(R.id.userAvatarView);
@@ -70,5 +79,9 @@ public class IssueCommentsAdapter extends RecyclerView.Adapter<IssueCommentsAdap
                     .load(comment.getUser().getAvatar_url())
                     .into(userAvatarView);
         }
+    }
+
+    interface OnUserClickListener {
+        void onClick(User user);
     }
 }

@@ -9,7 +9,7 @@
 
     <com.devspark.robototextview.widget.RobotoTextView
         android:id="@+id/titleView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -19,7 +19,7 @@
 
     <com.devspark.robototextview.widget.RobotoTextView
         android:id="@+id/userLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         app:typeface="roboto_regular"
@@ -28,7 +28,7 @@
 
     <com.devspark.robototextview.widget.RobotoTextView
         android:id="@+id/createdDay"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         tools:text="2017-06-14" />

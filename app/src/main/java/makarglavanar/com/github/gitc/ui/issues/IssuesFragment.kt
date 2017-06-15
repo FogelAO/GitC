@@ -1,5 +1,6 @@
 package makarglavanar.com.github.gitc.ui.issues
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -13,12 +14,13 @@ import makarglavanar.com.github.gitc.R
 import makarglavanar.com.github.gitc.entities.Issue
 import makarglavanar.com.github.gitc.toast
 import makarglavanar.com.github.gitc.ui.base_tab.BaseMainFragment
+import makarglavanar.com.github.gitc.ui.issues.issue_info.IssueInfoActivity
 import makarglavanar.com.github.gitc.web.GitHubService
 import javax.inject.Inject
 
-class IssuesFragment : BaseMainFragment<IssuesView, IssuesPresenter>(), IssuesView {
+class IssuesFragment : BaseMainFragment<IssuesView, IssuesPresenter>(), IssuesView, IssuesAdapter.OnIssueClickListener {
     @Inject lateinit var gitHubService: GitHubService
-    private val adapter: IssuesAdapter = IssuesAdapter()
+    private val adapter: IssuesAdapter = IssuesAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         GitCApp.appComponent.inject(this)
@@ -50,6 +52,12 @@ class IssuesFragment : BaseMainFragment<IssuesView, IssuesPresenter>(), IssuesVi
     override fun showError(t: Throwable) {
         Log.w(TAG, "Loading issues error", t)
         toast("Error loading issues")
+    }
+
+    override fun onclick(issue: Issue) {
+        val intent = Intent(context, IssueInfoActivity::class.java)
+        intent.putExtra("issue", issue)
+        startActivity(intent)
     }
 
     companion object {

@@ -14,10 +14,12 @@ import makarglavanar.com.github.gitc.R;
 import makarglavanar.com.github.gitc.entities.Issue;
 
 public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder> {
+    private final OnIssueClickListener listener;
     private List<Issue> issues;
 
-    public IssuesAdapter() {
+    public IssuesAdapter(OnIssueClickListener listener) {
         this.issues = new ArrayList<>();
+        this.listener = listener;
     }
 
     public void add(List<Issue> issues) {
@@ -53,8 +55,11 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
             title = (RobotoTextView) itemView.findViewById(R.id.titleView);
+            title.setOnClickListener(v -> listener.onclick(issue));
             userLoginView = (RobotoTextView) itemView.findViewById(R.id.userLogin);
+            userLoginView.setOnClickListener(v -> listener.onclick(issue));
             createdDayView = (RobotoTextView) itemView.findViewById(R.id.createdDay);
+            createdDayView.setOnClickListener(v -> listener.onclick(issue));
         }
 
         void bind(Issue issue) {
@@ -63,5 +68,9 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             userLoginView.setText(issue.getUser().getLogin());
             createdDayView.setText(issue.getDate());
         }
+    }
+
+    interface OnIssueClickListener {
+        void onclick(Issue issue);
     }
 }
