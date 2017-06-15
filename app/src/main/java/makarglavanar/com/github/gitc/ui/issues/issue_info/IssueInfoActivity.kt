@@ -36,6 +36,7 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
 
         issue = intent.getSerializableExtra("issue") as Issue
         presenter.loadIssue(issue.getFormattedUrl())
+        Log.d(TAG, issue.comments)
         presenter.loadIssueComments(issue.getFormattedComments())
 
         val layoutManager = LinearLayoutManager(this)
@@ -67,6 +68,7 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
 
     override fun showComments(comments: List<IssueComment>?) {
         if (comments == null) {
+            toast(getString(R.string.no_comments_info))
             adapter.clear()
             return
         }

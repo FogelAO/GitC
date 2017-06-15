@@ -6,17 +6,30 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <com.devspark.robototextview.widget.RobotoTextView
-        android:id="@+id/issueTitleView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Retrofit Singleton" />
-
-    <com.devspark.robototextview.widget.RobotoTextView
-        android:id="@+id/issueBodyView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:layout_height="300dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.devspark.robototextview.widget.RobotoTextView
+                android:id="@+id/issueTitleView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Retrofit Singleton" />
+
+            <com.devspark.robototextview.widget.RobotoTextView
+                android:id="@+id/issueBodyView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/issuesRecyclerView"

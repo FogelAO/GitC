@@ -35,6 +35,6 @@ data class Issue(val url: String,
         for (i in 29..url.length - 1) {
             stringBuilder.append(url[i])
         }
-        return stringBuilder.toString()
+        return stringBuilder.toString() + "/comments"
     }
 }

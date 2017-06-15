@@ -1,5 +1,6 @@
 package makarglavanar.com.github.gitc.ui.issues.issue_info
 
+import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -28,13 +29,14 @@ class IssueInfoPresenter(val view: View, val gitHubService: GitHubService) : Pre
     }
 
     override fun loadIssueComments(url: String?) {
+        Log.d("IssueInfoPresenter", url)
         if (url != null)
             subscriptions.add(
                     gitHubService.getIssueCommentsByUrl(url)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
-                                    { comments -> view.showComments(comments.items) },
+                                    { comments -> view.showComments(comments) },
                                     { t -> view.showError(t) })
             )
     }

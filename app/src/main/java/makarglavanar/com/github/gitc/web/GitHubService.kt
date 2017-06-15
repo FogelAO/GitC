@@ -30,5 +30,5 @@ interface GitHubService {
     fun getIssueByUrl(@Path(value = "url", encoded = true) url: String): Single<Issue>
 
     @GET("repos/{url}")
-    fun getIssueCommentsByUrl(@Path(value = "url", encoded = true) urk: String): Single<IssueCommentsResponse>
+    fun getIssueCommentsByUrl(@Path(value = "url", encoded = true) urk: String): Single<List<IssueComment>?>
 }
