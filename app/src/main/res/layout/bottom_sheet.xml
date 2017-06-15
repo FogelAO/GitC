@@ -1,23 +1,180 @@
-<android.support.design.widget.CoordinatorLayout android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ImageView
+        android:id="@+id/avatarView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        android:orientation="vertical">
+        android:layout_height="240dp"
+        android:contentDescription="@string/avatar"
+        android:fitsSystemWindows="true"
+        android:scaleType="centerCrop"
+        android:background="@color/colorPrimaryDark"
+        tools:src="@drawable/ground" />
 
-        <com.devspark.robototextview.widget.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="LOOOOOL"
-            android:layout_gravity="center"/>
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/loginView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="192dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="34sp"
+        app:typeface="roboto_regular"
+        tools:text="FogelAO" />
 
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/backView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_close_black_24dp" />
 
-</android.support.design.widget.CoordinatorLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="256dp"
+        android:paddingTop="4dp"
+        android:src="@drawable/ic_library_books_black_24dp" />
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/repoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="256dp"
+        android:textSize="24sp"
+        app:typeface="roboto_regular"
+        android:text="My repositories" />
+
+    <View
+        style="@style/lineDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/repoView"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoView"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:paddingTop="3dp"
+        android:src="@drawable/ic_notifications_black_24dp" />
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/alertView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repoView"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="24dp"
+        android:textSize="24sp"
+        app:typeface="roboto_regular"
+        android:text="Notifications" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alertView"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:paddingTop="3dp"
+        android:src="@drawable/ic_exit_to_app_black_24dp" />
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/exitView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alertView"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="24dp"
+        android:textSize="24sp"
+        app:typeface="roboto_regular"
+        android:text="Exit account" />
+
+    <View
+        style="@style/lineDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/exitView"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/exitView"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:paddingTop="4dp"
+        android:src="@drawable/ic_settings_black_24dp" />
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/settingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/exitView"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="24dp"
+        android:textSize="24sp"
+        app:typeface="roboto_regular"
+        android:text="Settings" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settingView"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingTop="4dp"
+        android:src="@drawable/ic_comment_black_24dp" />
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/commentView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settingView"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"
+        app:typeface="roboto_regular"
+        android:text="Commentaries" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/commentView"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingTop="4dp"
+        android:src="@drawable/ic_help_outline_black_24dp" />
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/helpView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/commentView"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"
+        app:typeface="roboto_regular"
+        android:text="Help" />
+
+</RelativeLayout>

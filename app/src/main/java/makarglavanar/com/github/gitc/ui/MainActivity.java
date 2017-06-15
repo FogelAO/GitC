@@ -1,8 +1,10 @@
 package makarglavanar.com.github.gitc.ui;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 	private final CompositeDisposable subscriptions = new CompositeDisposable();
 	private BaseMainFragment currentFragment;
 	Toolbar toolbar;
+	BottomSheetBehavior bottomSheetBehavior;
 	FrameLayout contentView;
 	SearchView searchView;
 	BottomNavigationView bottomNavigationView;
@@ -42,10 +45,30 @@ public class MainActivity extends AppCompatActivity {
 		bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 		bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
 		bottomNavigationView.setOnNavigationItemReselectedListener(this::onNavigationItemSelected);
-		findViewById(R.id.loginView).setOnClickListener(this::startLoginActivity);
+		findViewById(R.id.loginView).setOnClickListener(this::showBottomSheet);
+		findViewById(R.id.backView).setOnClickListener(this::hideBottomSheet);
+		View bottomSheet = findViewById(R.id.bottom_sheet);
+		bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+		bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+			@Override
+			public void onStateChanged(@NonNull View bottomSheet, int newState) {
+				if (newState != BottomSheetBehavior.STATE_HIDDEN) {
+					bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+				}
+			}
+
+			@Override
+			public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+				if (slideOffset >=0.9)
+					toolbar.setVisibility(View.GONE);
+				else
+					toolbar.setVisibility(View.VISIBLE);
+			}
+		});
+		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 		subscriptions.add(
 				RxView.clicks(findViewById(R.id.loginView))
-						.subscribe(this::startLoginActivity));
+						.subscribe(this::showBottomSheet));
 
 		BaseMainFragment fragment = (BaseMainFragment) getSupportFragmentManager().findFragmentById(R.id.content);
 		if (fragment == null) {
@@ -70,8 +93,15 @@ public class MainActivity extends AppCompatActivity {
 		subscriptions.dispose();
 	}
 
-	private void startLoginActivity(Object o) {
+	private void showBottomSheet(Object o) {
+		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+		bottomNavigationView.setVisibility(View.GONE);
+	}
 
+	private void hideBottomSheet(Object o) {
+		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+		bottomNavigationView.setVisibility(View.VISIBLE);
+		toolbar.setVisibility(View.VISIBLE);
 	}
 
 	private boolean onNavigationItemSelected(MenuItem menuItem) {
