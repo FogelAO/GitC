@@ -53,8 +53,8 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
             title = (RobotoTextView) itemView.findViewById(R.id.titleView);
-            userLoginView = (RobotoTextView) itemView.findViewById(R.id.userLoginView);
-            createdDayView = (RobotoTextView) itemView.findViewById(R.id.createdDayView);
+            userLoginView = (RobotoTextView) itemView.findViewById(R.id.userLogin);
+            createdDayView = (RobotoTextView) itemView.findViewById(R.id.createdDay);
         }
 
         void bind(Issue issue) {
