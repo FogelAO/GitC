@@ -35,6 +35,7 @@ class IssueInfoActivity : AppCompatActivity(), View {
     }
 
     override fun showIssue(issue: Issue) {
+
     }
 
     companion object {
