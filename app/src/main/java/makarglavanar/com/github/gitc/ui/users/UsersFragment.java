@@ -84,7 +84,7 @@ public class UsersFragment extends BaseMainFragment<UsersView, UsersPresenter> i
     }
 
     @Override
-    public void load(String request) {
+    public void load(@NonNull String request) {
         presenter.loadUsers(request);
     }
 

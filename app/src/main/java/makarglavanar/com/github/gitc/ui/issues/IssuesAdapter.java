@@ -61,7 +61,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             this.issue = issue;
             title.setText(issue.getTitle());
             userLoginView.setText(issue.getUser().getLogin());
-            createdDayView.setText(issue.getFormattedDate());
+            createdDayView.setText(issue.getDate());
         }
     }
 }

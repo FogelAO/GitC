@@ -9,10 +9,21 @@ data class Issue(val url: String,
                  val state: String,
                  val created_at: String,
                  val comments: String?) : Serializable {
-    fun getFormattedDate(): String {
-        val tempData = StringBuilder()
-        for (i in 0..9)
-            tempData.append(created_at[i])
-        return tempData.toString()
+
+    val date: String
+        get() {
+            val stringBuilder = StringBuilder()
+            for (i in 29..url.length - 1) {
+                stringBuilder.append(url[i])
+            }
+            return stringBuilder.toString()
+        }
+
+    fun getFormattedUrl(): String {
+        val stringBuilder = StringBuilder()
+        for (i in 29..url.length - 1) {
+            stringBuilder.append(url[i])
+        }
+        return stringBuilder.toString()
     }
 }

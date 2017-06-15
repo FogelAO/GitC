@@ -45,10 +45,13 @@ public class MainActivity extends AppCompatActivity {
 		bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 		bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
 		bottomNavigationView.setOnNavigationItemReselectedListener(this::onNavigationItemSelected);
+
 		findViewById(R.id.loginView).setOnClickListener(this::showBottomSheet);
 		findViewById(R.id.backView).setOnClickListener(this::hideBottomSheet);
+
 		View bottomSheet = findViewById(R.id.bottom_sheet);
 		bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 		bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
 			@Override
 			public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 					toolbar.setVisibility(View.VISIBLE);
 			}
 		});
-		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
 		subscriptions.add(
 				RxView.clicks(findViewById(R.id.loginView))
 						.subscribe(this::showBottomSheet));

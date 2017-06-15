@@ -21,8 +21,11 @@ interface GitHubService {
     fun getReposByName(@Query("q") name: String): Single<RepositoriesResponse>
 
     @GET("repos/{url}")
-    fun getRepoByUrl(@Path("url") url: String): Single<Repository>
+    fun getRepoByUrl(@Path(value = "url", encoded = true) url: String): Single<Repository>
 
     @GET("search/issues")
     fun getIssuesByTerms(@Query("q") terms: String): Single<IssuesResponse>
+
+    @GET("repos/{url}")
+    fun getIssueByUrl(@Path("url") url: String): Single<Issue>
 }

@@ -19,7 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.users.user_info.UserInfoActivity" />
+        <activity
+            android:name=".ui.users.user_info.UserInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.repos.repo_info.RepositoryInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.issues.issue_info.IssueInfoActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

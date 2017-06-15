@@ -7,6 +7,7 @@ data class Repository(val id: String,
                       val name: String,
                       val avatar_url: String,
                       val owner: User,
+                      val url: String,
                       val created_at: String,
                       val language: String?,
                       val watchers: String,
@@ -16,20 +17,20 @@ data class Repository(val id: String,
                       val stargazers_count: String,
                       val watchers_count: String) : Serializable {
 
-    val url: String
+    val date: String
         get() {
             val stringBuilder = StringBuilder()
-            for (i in 28..url.length) {
+            for (i in 29..url.length - 1) {
                 stringBuilder.append(url[i])
             }
             return stringBuilder.toString()
         }
 
-    fun getFormattedDate(): String {
-        val tempData = StringBuilder()
-        for (i in 0..9)
-            tempData.append(created_at[i])
-        return tempData.toString()
+    fun getFormattedUrl(): String {
+        val stringBuilder = StringBuilder()
+        for (i in 29..url.length - 1) {
+            stringBuilder.append(url[i])
+        }
+        return stringBuilder.toString()
     }
-
 }

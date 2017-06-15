@@ -10,10 +10,11 @@ import makarglavanar.com.github.gitc.R
 import makarglavanar.com.github.gitc.entities.Repository
 import makarglavanar.com.github.gitc.toast
 import makarglavanar.com.github.gitc.ui.repos.repo_info.RepoInfoScreenContract.Presenter
+import makarglavanar.com.github.gitc.ui.repos.repo_info.RepoInfoScreenContract.View
 import makarglavanar.com.github.gitc.web.GitHubService
 import javax.inject.Inject
 
-class RepositoryInfoActivity : AppCompatActivity(), RepoInfoScreenContract.View {
+class RepositoryInfoActivity : AppCompatActivity(), View {
     @Inject lateinit var gitHubService: GitHubService
     private lateinit var presenter: Presenter
     private lateinit var repository: Repository
@@ -24,7 +25,8 @@ class RepositoryInfoActivity : AppCompatActivity(), RepoInfoScreenContract.View 
         presenter = RepoInfoPresenter(this, gitHubService)
         setContentView(R.layout.activity_repo_info)
         repository = intent.getSerializableExtra("repo") as Repository
-        presenter.loadRepo(repository.url)
+        Log.d(TAG, repository.url)
+        presenter.loadRepo(repository.getFormattedUrl())
     }
 
     override fun onDestroy() {

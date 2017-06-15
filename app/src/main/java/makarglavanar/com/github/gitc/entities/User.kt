@@ -13,10 +13,11 @@ data class User(val login: String,
                 val created_at: String) : Serializable {
 
 
-    fun getFormattedDate(): String {
-        val tempData = StringBuilder()
-        for (i in 0..9)
-            tempData.append(created_at[i])
-        return tempData.toString()
-    }
+    val date: String
+        get() {
+            val tempData = StringBuilder()
+            for (i in 0..9)
+                tempData.append(created_at[i])
+            return tempData.toString()
+        }
 }
