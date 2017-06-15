@@ -8,4 +8,5 @@
 	<color name="colorNavigationBarBackground">#EFEFEF</color>
 	<color name="defaultBackground">#F7F7F7</color>
 	<color name="dividerLineColor">#cccccc</color>
+	<color name="coolGreenColor">#096882</color>
 </resources>
