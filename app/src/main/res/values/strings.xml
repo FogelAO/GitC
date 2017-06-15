@@ -8,7 +8,7 @@
 	<string name="followers">Followers</string>
 	<string name="registered_at">Registered at</string>
 	<string name="error_loading_user_by_login">Error occurred while loading user</string>
-	<string name="error_loading_users_by_login">Error loading users</string>
+	<string name="error_loading_users_by_login">Error occurred while loading users</string>
 	<string name="avatar">Avatar</string>
 	<string name="name">Name</string>
 	<string name="email">Email</string>

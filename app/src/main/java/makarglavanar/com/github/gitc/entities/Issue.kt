@@ -14,8 +14,8 @@ data class Issue(val url: String,
     val date: String
         get() {
             val stringBuilder = StringBuilder()
-            for (i in 29..url.length - 1) {
-                stringBuilder.append(url[i])
+            for (i in 29..created_at.length - 1) {
+                stringBuilder.append(created_at[i])
             }
             return stringBuilder.toString()
         }

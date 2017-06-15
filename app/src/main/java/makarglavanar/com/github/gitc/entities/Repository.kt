@@ -8,6 +8,7 @@ data class Repository(val id: String,
                       val owner: User,
                       val url: String,
                       val created_at: String,
+                      val updated_at: String,
                       val language: String?,
                       val watchers: String,
                       val open_issues: String,
@@ -24,6 +25,14 @@ data class Repository(val id: String,
             }
             return stringBuilder.toString()
         }
+
+    fun getFormattedUpdated(): String {
+        val stringBuilder = StringBuilder()
+        for (i in 29..created_at.length - 1) {
+            stringBuilder.append(created_at[i])
+        }
+        return stringBuilder.toString()
+    }
 
     fun getFormattedUrl(): String {
         val stringBuilder = StringBuilder()

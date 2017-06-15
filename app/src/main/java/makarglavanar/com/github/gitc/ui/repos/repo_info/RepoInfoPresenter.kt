@@ -17,15 +17,39 @@ class RepoInfoPresenter(val view: View, val gitHubService: GitHubService) : Pres
     }
 
     override fun loadRepo(url: String) {
-        Log.d("RepoInfoPresenter", url)
+        Log.d(TAG, url)
         subscriptions.add(
                 gitHubService
-                        .getRepoByUrl(url)
+                        .getRepoFilesByUrl(url)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { repository -> view.showRepository(repository) },
+                                { files -> Log.d("TAG", files.toString()); view.showContents(files) },
                                 { t -> view.showError(t) }
                         ))
+    }
+
+    override fun loadFile(url: String) {
+        Log.d("TAG", url)
+        subscriptions.add(
+                gitHubService
+                        .getFileByUrl(url)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                {
+                                    file -> view.showFile(file)
+                                },
+                                { t -> view.showError(t) }
+                        )
+        )
+    }
+
+//    override fun loadRepoFiles(url: String) {
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//    }
+
+    companion object {
+        val TAG: String = RepoInfoPresenter::class.java.simpleName
     }
 }

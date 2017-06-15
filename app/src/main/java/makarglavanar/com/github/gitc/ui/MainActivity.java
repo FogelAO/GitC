@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.hardikgoswami.oauthLibGithub.GithubOauth;
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -27,6 +28,8 @@ import makarglavanar.com.github.gitc.ui.base_tab.Tab;
 public class MainActivity extends AppCompatActivity {
 	private static final String TAG = MainActivity.class.getSimpleName();
 	private final CompositeDisposable subscriptions = new CompositeDisposable();
+	public static final String GITHUB_ID = "d5080392ac0549ece798" /*BuildConfig.GITHUB_ID*/;
+	public static final String GITHUB_SECRET = "47285e784eeb81a9e9a1595747750575bb5edc10"/*BuildConfig.GITHUB_SECRET*/;
 	private BaseMainFragment currentFragment;
 	Toolbar toolbar;
 	BottomSheetBehavior bottomSheetBehavior;
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-				if (slideOffset >=0.9)
+				if (slideOffset >= 0.9)
 					toolbar.setVisibility(View.GONE);
 				else
 					toolbar.setVisibility(View.VISIBLE);
@@ -97,8 +100,18 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void showBottomSheet(Object o) {
-		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-		bottomNavigationView.setVisibility(View.GONE);
+		GithubOauth
+				.Builder()
+				.withClientId(GITHUB_ID)
+				.withClientSecret(GITHUB_SECRET)
+				.withContext(this)
+				.packageName("makarglavanar.com.github.gitc")
+				.nextActivity("makarglavanar.com.github.gitc.MainActivity")
+				.debug(true)
+				.execute();
+
+//		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//		bottomNavigationView.setVisibility(View.GONE);
 	}
 
 	private void hideBottomSheet(Object o) {

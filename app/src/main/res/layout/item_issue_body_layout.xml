@@ -1,0 +1,13 @@
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<com.devspark.robototextview.widget.RobotoTextView
+		android:id="@+id/issueBodyView"
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+	</com.devspark.robototextview.widget.RobotoTextView>
+</FrameLayout>

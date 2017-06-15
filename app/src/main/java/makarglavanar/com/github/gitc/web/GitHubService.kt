@@ -20,6 +20,9 @@ interface GitHubService {
     @GET("search/repositories")
     fun getReposByName(@Query("q") name: String): Single<RepositoriesResponse>
 
+    @GET("users/{user}/repos")
+    fun getUserRepos(@Path("user") login: String): Single<List<Repository>?>
+
     @GET("repos/{url}")
     fun getRepoByUrl(@Path(value = "url", encoded = true) url: String): Single<Repository>
 
@@ -31,4 +34,10 @@ interface GitHubService {
 
     @GET("repos/{url}")
     fun getIssueCommentsByUrl(@Path(value = "url", encoded = true) urk: String): Single<List<IssueComment>?>
+
+    @GET("repos/{url}/contents")
+    fun getRepoFilesByUrl(@Path(value = "url", encoded = true) url: String): Single<List<File>>
+
+    @GET("repos/{url}")
+    fun getFileByUrl(@Path(value = "url", encoded = true) url: String): Single<File>
 }

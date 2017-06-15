@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
 	<android.support.v7.widget.Toolbar
 		android:layout_width="match_parent"
@@ -22,32 +22,52 @@
 			android:id="@+id/name"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			tools:text="Jet School"
-			android:textSize="24sp"
-			android:layout_marginLeft="32dp"
 			android:layout_gravity="left"
-			app:typeface="roboto_regular"
+			android:layout_marginLeft="32dp"
 			android:textColor="#ffffff"
+			android:textSize="24sp"
+			app:typeface="roboto_regular"
+			tools:text="Jet School"
 			/>
 
 		<ImageView
 			android:id="@+id/favView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:src="@drawable/ic_star_border_black_24dp"
 			android:layout_gravity="right"
+			android:src="@drawable/ic_star_border_black_24dp"
 			/>
 
 		<ImageView
 			android:id="@+id/watchView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:src="@drawable/ic_visibility_black_24dp"
 			android:layout_gravity="right"
 			android:layout_marginRight="32dp"
+			android:src="@drawable/ic_visibility_black_24dp"
 			/>
 
 	</android.support.v7.widget.Toolbar>
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<com.devspark.robototextview.widget.RobotoTextView
+			android:id="@+id/fileContent"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:visibility="gone"
+			tools:text="IyBDYWxjdWxhdG9yClZlcnkgc2ltcGxlIGV4YW1wbGUgb2YgbXkgZmlyc3Qg
+d29yayBmb3IgQW5kcm9pZAo="/>
+
+	</ScrollView>
+
+
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/reposInfoListView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"/>
 
 	<com.devspark.robototextview.widget.RobotoTextView
 		android:id="@+id/ownerLogin"

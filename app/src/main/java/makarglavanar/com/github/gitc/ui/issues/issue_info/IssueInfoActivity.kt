@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.bumptech.glide.Glide
+import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.activity_issue_info.*
 import makarglavanar.com.github.gitc.GitCApp
 import makarglavanar.com.github.gitc.R
@@ -41,11 +42,12 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
 
         val layoutManager = LinearLayoutManager(this)
         val decorator = DividerItemDecoration(this, layoutManager.orientation)
+        RxView.clicks(backView).subscribe({ onBackPressed() })
 
         issuesRecyclerView.layoutManager = layoutManager
         issuesRecyclerView.addItemDecoration(decorator)
 
-        adapter = IssueCommentsAdapter(Glide.with(this), this)
+        adapter = IssueCommentsAdapter(issue, Glide.with(this), this)
         issuesRecyclerView.adapter = adapter
     }
 
@@ -63,7 +65,6 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
 
     override fun showIssue(issue: Issue) {
         issueTitleView.text = issue.title
-        issueBodyView.text = issue.body
     }
 
     override fun showComments(comments: List<IssueComment>?) {

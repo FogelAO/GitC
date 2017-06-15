@@ -1,6 +1,7 @@
 package makarglavanar.com.github.gitc.ui.issues.issue_info;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,75 +14,114 @@ import java.util.ArrayList;
 import java.util.List;
 
 import makarglavanar.com.github.gitc.R;
+import makarglavanar.com.github.gitc.entities.Issue;
 import makarglavanar.com.github.gitc.entities.IssueComment;
 import makarglavanar.com.github.gitc.entities.User;
 
-public class IssueCommentsAdapter extends RecyclerView.Adapter<IssueCommentsAdapter.ViewHolder> {
-    private List<IssueComment> comments;
-    private final RequestManager requestManager;
-    private final OnUserClickListener listener;
+public class IssueCommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+	private List<Object> comments;
+	private final RequestManager requestManager;
+	private final OnUserClickListener listener;
 
-    public IssueCommentsAdapter(RequestManager requestManager, OnUserClickListener listener) {
-        this.requestManager = requestManager;
-        this.listener = listener;
-        comments = new ArrayList<>();
-    }
+	public IssueCommentsAdapter(Issue issue, RequestManager requestManager, OnUserClickListener listener) {
+		this.requestManager = requestManager;
+		this.listener = listener;
+		comments = new ArrayList<>();
+		comments.add(issue);
+	}
 
-    public void add(List<IssueComment> comments) {
-        this.comments = comments;
-        notifyDataSetChanged();
-    }
+	public void add(List<Object> comments) {
+		this.comments = comments;
+		notifyDataSetChanged();
+	}
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_issue_comment, parent, false);
-        return new ViewHolder(view);
-    }
+	@Override
+	public int getItemViewType(int position) {
+		if (position == 0) return 0;
+		return 1;
+	}
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        IssueComment comment = comments.get(position);
-        holder.bind(comment);
-    }
+	@Override
+	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+		if (holder == null) {
+			Log.d("TAG", "Holder is null");
+			return;
+		}
+		if (position == 0) {
+			Issue issue = (Issue) comments.get(position);
+			((IssueViewHolder) holder).body.setText(issue.getBody());
+			return;
+		}
+		IssueComment comment = (IssueComment) comments.get(position);
+		((IssueCommentsViewHolder) holder).bind(comment);
+	}
 
-    @Override
-    public int getItemCount() {
-        return comments.size();
-    }
+	@Override
+	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		switch (viewType) {
+			case 0:
+				Log.d("TAG", viewType + "");
+				View view = LayoutInflater.from(parent.getContext())
+						.inflate(R.layout.item_issue_body_layout, parent, false);
+				return new IssueViewHolder(view);
+			case 1:
+				Log.d("TAG", viewType + "");
+				view = LayoutInflater.from(parent.getContext())
+						.inflate(R.layout.item_issue_comment, parent, false);
+				return new IssueCommentsViewHolder(view);
+			default:
+				throw new IllegalArgumentException("Illegal viewType");
+		}
+	}
 
-    public void clear() {
-        comments.clear();
-    }
+	@Override
+	public int getItemCount() {
+		return comments.size();
+	}
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private IssueComment comment;
-        private RobotoTextView loginView;
-        private RobotoTextView bodyView;
-        private RobotoTextView dateView;
-        private ImageView userAvatarView;
+	public void clear() {
+		Issue issue = (Issue) comments.get(0);
+		comments.clear();
+		comments.add(issue);
+	}
 
-        ViewHolder(View itemView) {
-            super(itemView);
-            loginView = (RobotoTextView) itemView.findViewById(R.id.userLogin);
-            loginView.setOnClickListener(v -> listener.onClick(comment.getUser()));
-            bodyView = (RobotoTextView) itemView.findViewById(R.id.body);
-            dateView = (RobotoTextView) itemView.findViewById(R.id.createdDay);
-            userAvatarView = (ImageView) itemView.findViewById(R.id.userAvatarView);
-        }
+	private class IssueCommentsViewHolder extends RecyclerView.ViewHolder {
+		private IssueComment comment;
+		private RobotoTextView loginView;
+		private RobotoTextView bodyView;
+		private RobotoTextView dateView;
+		private ImageView userAvatarView;
 
-        void bind(IssueComment comment) {
-            this.comment = comment;
-            loginView.setText(comment.getUser().getLogin());
-            bodyView.setText(comment.getBody());
-            dateView.setText(comment.getDate());
-            requestManager
-                    .load(comment.getUser().getAvatar_url())
-                    .into(userAvatarView);
-        }
-    }
+		IssueCommentsViewHolder(View itemView) {
+			super(itemView);
+			loginView = (RobotoTextView) itemView.findViewById(R.id.userLogin);
+			loginView.setOnClickListener(v -> listener.onClick(comment.getUser()));
+			bodyView = (RobotoTextView) itemView.findViewById(R.id.body);
+			dateView = (RobotoTextView) itemView.findViewById(R.id.createdDay);
+			userAvatarView = (ImageView) itemView.findViewById(R.id.userAvatarView);
+		}
 
-    interface OnUserClickListener {
-        void onClick(User user);
-    }
+		void bind(IssueComment comment) {
+			this.comment = comment;
+			loginView.setText(comment.getUser().getLogin());
+			bodyView.setText(comment.getBody());
+			dateView.setText(comment.getDate());
+			requestManager
+					.load(comment.getUser().getAvatar_url())
+					.into(userAvatarView);
+		}
+	}
+
+	private class IssueViewHolder extends RecyclerView.ViewHolder {
+		RobotoTextView body;
+
+		IssueViewHolder(View itemView) {
+			super(itemView);
+			body = (RobotoTextView) itemView.findViewById(R.id.issueBodyView);
+		}
+	}
+
+	interface OnUserClickListener {
+		void onClick(User user);
+	}
 }
