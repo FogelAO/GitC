@@ -57,6 +57,7 @@
         android:layout_marginLeft="72dp"
         android:layout_marginTop="256dp"
         android:textSize="24sp"
+        android:textColor="@color/defaultBlackColor"
         app:typeface="roboto_regular"
         android:text="My repositories" />
 
@@ -83,6 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/repoView"
+        android:textColor="@color/defaultBlackColor"
         android:layout_marginLeft="72dp"
         android:layout_marginTop="24dp"
         android:textSize="24sp"
@@ -105,6 +107,7 @@
         android:layout_below="@id/alertView"
         android:layout_marginLeft="72dp"
         android:layout_marginTop="24dp"
+        android:textColor="@color/defaultBlackColor"
         android:textSize="24sp"
         app:typeface="roboto_regular"
         android:text="Exit account" />
@@ -135,6 +138,7 @@
         android:layout_marginLeft="72dp"
         android:layout_marginTop="24dp"
         android:textSize="24sp"
+        android:textColor="@color/defaultBlackColor"
         app:typeface="roboto_regular"
         android:text="Settings" />
 
@@ -155,6 +159,7 @@
         android:layout_marginLeft="72dp"
         android:layout_marginTop="16dp"
         android:textSize="24sp"
+        android:textColor="@color/defaultBlackColor"
         app:typeface="roboto_regular"
         android:text="Commentaries" />
 
@@ -175,6 +180,7 @@
         android:layout_marginLeft="72dp"
         android:layout_marginTop="16dp"
         android:textSize="24sp"
+        android:textColor="@color/defaultBlackColor"
         app:typeface="roboto_regular"
         android:text="Help" />
 

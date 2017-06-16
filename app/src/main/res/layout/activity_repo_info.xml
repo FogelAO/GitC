@@ -57,17 +57,30 @@
 			android:id="@+id/fileContent"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:visibility="gone"
 			tools:text="IyBDYWxjdWxhdG9yClZlcnkgc2ltcGxlIGV4YW1wbGUgb2YgbXkgZmlyc3Qg
-d29yayBmb3IgQW5kcm9pZAo="/>
+d29yayBmb3IgQW5kcm9pZAo="
+			android:layout_margin="16dp"
+			app:typeface="roboto_regular"
+			android:textSize="16sp"
+			android:visibility="gone"
+			android:textColor="@color/defaultBlackColor"
+			/>
 
 	</ScrollView>
 
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="@color/dividerLineColor"
+		android:layout_marginBottom="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginLeft="16dp" />
 
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/reposInfoListView"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="16dp"/>
 
 	<com.devspark.robototextview.widget.RobotoTextView
 		android:id="@+id/ownerLogin"
@@ -87,7 +100,8 @@ d29yayBmb3IgQW5kcm9pZAo="/>
 	<com.devspark.robototextview.widget.RobotoTextView
 		android:id="@+id/stargazersCount"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"/>
+		android:layout_height="match_parent"
+		/>
 
 	<com.devspark.robototextview.widget.RobotoTextView
 		android:id="@+id/description"
