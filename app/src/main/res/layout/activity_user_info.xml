@@ -206,6 +206,14 @@
 				android:contentDescription="@string/registered_at"
 				android:src="@drawable/ic_access_time_black_24dp"/>
 
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/followersView"
+				android:src="@drawable/ic_library_books_black_24dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginLeft="16dp" />
+
 			<com.devspark.robototextview.widget.RobotoTextView
 				android:id="@+id/reposCountView"
 				android:layout_width="match_parent"
