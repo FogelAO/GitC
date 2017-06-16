@@ -17,12 +17,11 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         all {
-//            buildConfigField 'String', 'GITHUB_ID', 'd5080392ac0549ece798'
-//            buildConfigField 'String', 'GITHUB_SECRET', '47285e784eeb81a9e9a1595747750575bb5edc10'
         }
     }
     compileOptions {
@@ -52,7 +51,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.johnkil.android-robototextview:robototextview:3.0.0'
 //    compile 'com.github.geniushkg:oauthLibGithub:1.0.2'
-    testCompile 'junit:junit:4.12'
     kapt 'com.google.dagger:dagger-compiler:2.10'
 }
 repositories {
