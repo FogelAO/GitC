@@ -73,7 +73,7 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
             adapter.clear()
             return
         }
-        adapter.add(comments)
+        adapter.add(issue, comments)
     }
 
     override fun onClick(user: User) {

@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.hardikgoswami.oauthLibGithub.GithubOauth;
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -26,127 +25,127 @@ import makarglavanar.com.github.gitc.ui.base_tab.BaseMainFragment;
 import makarglavanar.com.github.gitc.ui.base_tab.Tab;
 
 public class MainActivity extends AppCompatActivity {
-	private static final String TAG = MainActivity.class.getSimpleName();
-	private final CompositeDisposable subscriptions = new CompositeDisposable();
-	public static final String GITHUB_ID = "d5080392ac0549ece798" /*BuildConfig.GITHUB_ID*/;
-	public static final String GITHUB_SECRET = "47285e784eeb81a9e9a1595747750575bb5edc10"/*BuildConfig.GITHUB_SECRET*/;
-	private BaseMainFragment currentFragment;
-	Toolbar toolbar;
-	BottomSheetBehavior bottomSheetBehavior;
-	FrameLayout contentView;
-	SearchView searchView;
-	BottomNavigationView bottomNavigationView;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private final CompositeDisposable subscriptions = new CompositeDisposable();
+    //    public static final String GITHUB_ID = BuildConfig.GITHUB_ID;
+//    public static final String GITHUB_SECRET = BuildConfig.GITHUB_SECRET;
+    private BaseMainFragment currentFragment;
+    Toolbar toolbar;
+    BottomSheetBehavior bottomSheetBehavior;
+    FrameLayout contentView;
+    SearchView searchView;
+    BottomNavigationView bottomNavigationView;
 
-	@Override
-	public void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-		searchView = (SearchView) findViewById(R.id.searchView);
-		toolbar = (Toolbar) findViewById(R.id.toolbar);
-		contentView = (FrameLayout) findViewById(R.id.content);
-		bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
-		bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
-		bottomNavigationView.setOnNavigationItemReselectedListener(this::onNavigationItemSelected);
+        searchView = (SearchView) findViewById(R.id.searchView);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        contentView = (FrameLayout) findViewById(R.id.content);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+        bottomNavigationView.setOnNavigationItemReselectedListener(this::onNavigationItemSelected);
 
-		findViewById(R.id.loginView).setOnClickListener(this::showBottomSheet);
-		findViewById(R.id.backView).setOnClickListener(this::hideBottomSheet);
+        findViewById(R.id.loginView).setOnClickListener(this::showBottomSheet);
+        findViewById(R.id.backView).setOnClickListener(this::hideBottomSheet);
 
-		View bottomSheet = findViewById(R.id.bottom_sheet);
-		bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-		bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-			@Override
-			public void onStateChanged(@NonNull View bottomSheet, int newState) {
-				if (newState != BottomSheetBehavior.STATE_HIDDEN) {
-					bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-				}
-			}
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState != BottomSheetBehavior.STATE_HIDDEN) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
 
-			@Override
-			public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-				if (slideOffset >= 0.9)
-					toolbar.setVisibility(View.GONE);
-				else
-					toolbar.setVisibility(View.VISIBLE);
-			}
-		});
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                if (slideOffset >= 0.9)
+                    toolbar.setVisibility(View.GONE);
+                else
+                    toolbar.setVisibility(View.VISIBLE);
+            }
+        });
 
-		subscriptions.add(
-				RxView.clicks(findViewById(R.id.loginView))
-						.subscribe(this::showBottomSheet));
+        subscriptions.add(
+                RxView.clicks(findViewById(R.id.loginView))
+                        .subscribe(this::showBottomSheet));
 
-		BaseMainFragment fragment = (BaseMainFragment) getSupportFragmentManager().findFragmentById(R.id.content);
-		if (fragment == null) {
-			replaceOrSetContentFragment(BaseMainFragment.newInstance(Tab.USERS));
-			bottomNavigationView.setSelectedItemId(R.id.users);
-		} else {
-			currentFragment = fragment;
-			bottomNavigationView.setSelectedItemId(fragment.getTabItemId());
-		}
+        BaseMainFragment fragment = (BaseMainFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        if (fragment == null) {
+            replaceOrSetContentFragment(BaseMainFragment.newInstance(Tab.USERS));
+            bottomNavigationView.setSelectedItemId(R.id.users);
+        } else {
+            currentFragment = fragment;
+            bottomNavigationView.setSelectedItemId(fragment.getTabItemId());
+        }
 
-		subscriptions.add(RxSearchView.queryTextChanges(searchView)
-				.debounce(300, TimeUnit.MILLISECONDS)
-				.filter(charSequence -> charSequence.length() > 1)
-				.doOnError(throwable -> Log.w(TAG, "Error occurred while searching", throwable))
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(charSequence -> currentFragment.load(charSequence.toString())));
-	}
+        subscriptions.add(RxSearchView.queryTextChanges(searchView)
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .filter(charSequence -> charSequence.length() > 1)
+                .doOnError(throwable -> Log.w(TAG, "Error occurred while searching", throwable))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(charSequence -> currentFragment.load(charSequence.toString())));
+    }
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		subscriptions.dispose();
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        subscriptions.dispose();
+    }
 
-	private void showBottomSheet(Object o) {
-		GithubOauth
-				.Builder()
-				.withClientId(GITHUB_ID)
-				.withClientSecret(GITHUB_SECRET)
-				.withContext(this)
-				.packageName("makarglavanar.com.github.gitc")
-				.nextActivity("makarglavanar.com.github.gitc.MainActivity")
-				.debug(true)
-				.execute();
+    private void showBottomSheet(Object o) {
+//		GithubOauth
+//				.Builder()
+//				.withClientId(GITHUB_ID)
+//				.withClientSecret(GITHUB_SECRET)
+//				.withContext(this)
+//				.packageName("makarglavanar.com.github.gitc")
+//				.nextActivity("makarglavanar.com.github.gitc.MainActivity")
+//				.debug(true)
+//				.execute();
 
-//		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//		bottomNavigationView.setVisibility(View.GONE);
-	}
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        bottomNavigationView.setVisibility(View.GONE);
+    }
 
-	private void hideBottomSheet(Object o) {
-		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-		bottomNavigationView.setVisibility(View.VISIBLE);
-		toolbar.setVisibility(View.VISIBLE);
-	}
+    private void hideBottomSheet(Object o) {
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        toolbar.setVisibility(View.VISIBLE);
+    }
 
-	private boolean onNavigationItemSelected(MenuItem menuItem) {
-		Tab selectedTab;
+    private boolean onNavigationItemSelected(MenuItem menuItem) {
+        Tab selectedTab;
 
-		switch (menuItem.getItemId()) {
-			case R.id.users:
-				selectedTab = Tab.USERS;
-				break;
-			case R.id.repos:
-				selectedTab = Tab.REPOS;
-				break;
-			case R.id.issues:
-				selectedTab = Tab.ISSUES;
-				break;
-			default:
-				throw new IllegalStateException("Unsupported tab " + menuItem.getTitle());
-		}
-		searchView.setIconified(true);
-		searchView.clearFocus();
-		currentFragment = BaseMainFragment.newInstance(selectedTab);
-		replaceOrSetContentFragment(currentFragment);
-		return true;
-	}
+        switch (menuItem.getItemId()) {
+            case R.id.users:
+                selectedTab = Tab.USERS;
+                break;
+            case R.id.repos:
+                selectedTab = Tab.REPOS;
+                break;
+            case R.id.issues:
+                selectedTab = Tab.ISSUES;
+                break;
+            default:
+                throw new IllegalStateException("Unsupported tab " + menuItem.getTitle());
+        }
+        searchView.setIconified(true);
+        searchView.clearFocus();
+        currentFragment = BaseMainFragment.newInstance(selectedTab);
+        replaceOrSetContentFragment(currentFragment);
+        return true;
+    }
 
-	private void replaceOrSetContentFragment(BaseMainFragment fragment) {
-		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.content, fragment)
-				.commit();
-		currentFragment = fragment;
-	}
+    private void replaceOrSetContentFragment(BaseMainFragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content, fragment)
+                .commit();
+        currentFragment = fragment;
+    }
 }

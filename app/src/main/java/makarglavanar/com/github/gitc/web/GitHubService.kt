@@ -38,6 +38,6 @@ interface GitHubService {
     @GET("repos/{url}/contents")
     fun getRepoFilesByUrl(@Path(value = "url", encoded = true) url: String): Single<List<File>>
 
-    @GET("repos/{url}")
+    @GET("repos/{url}?ref=master")
     fun getFileByUrl(@Path(value = "url", encoded = true) url: String): Single<File>
 }

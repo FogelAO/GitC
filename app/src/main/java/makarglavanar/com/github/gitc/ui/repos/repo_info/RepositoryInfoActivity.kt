@@ -9,7 +9,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.activity_repo_info.*
-import kotlinx.android.synthetic.main.fragment_repos.*
 import makarglavanar.com.github.gitc.GitCApp
 import makarglavanar.com.github.gitc.R
 import makarglavanar.com.github.gitc.entities.File
@@ -61,12 +60,14 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
 
 
     override fun showContents(contents: List<File>) {
+        reposInfoListView.visibility = VISIBLE
+        fileContent.visibility = GONE
         Log.d(TAG, contents.toString() + contents.size)
         adapter.add(contents)
     }
 
     override fun showFile(file: File) {
-        reposListView.visibility = GONE
+        reposInfoListView.visibility = GONE
         fileContent.text = file.content
         fileContent.visibility = VISIBLE
     }
@@ -75,6 +76,8 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
         Log.d(TAG, file.toString())
         if (file.isFile()) {
             presenter.loadFile(file.getFormattedFileUrl())
+        } else {
+            presenter.loadRepo(file.getFormattedDirUrl())
         }
     }
 
