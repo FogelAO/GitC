@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Base64
 import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -18,6 +19,7 @@ import makarglavanar.com.github.gitc.ui.repos.repo_info.RepoInfoScreenContract.P
 import makarglavanar.com.github.gitc.ui.repos.repo_info.RepoInfoScreenContract.View
 import makarglavanar.com.github.gitc.web.GitHubService
 import javax.inject.Inject
+
 
 class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileClickListener {
     @Inject lateinit var gitHubService: GitHubService
@@ -37,7 +39,6 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
 
         val layoutManager = LinearLayoutManager(this)
         val decorator = DividerItemDecoration(this, layoutManager.orientation)
-
         reposInfoListView.layoutManager = layoutManager
         reposInfoListView.addItemDecoration(decorator)
         adapter = FilesAdapter(this)
@@ -45,6 +46,10 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
 
         RxView.clicks(backView)
                 .subscribe({ onBackPressed() })
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
     override fun onDestroy() {
@@ -68,7 +73,8 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
 
     override fun showFile(file: File) {
         reposInfoListView.visibility = GONE
-        fileContent.text = file.content
+        val valueDecoded = Base64.decode(file.content, Base64.DEFAULT)
+        fileContent.text = String(valueDecoded)
         fileContent.visibility = VISIBLE
     }
 

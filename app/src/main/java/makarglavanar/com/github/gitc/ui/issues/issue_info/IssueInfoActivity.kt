@@ -3,10 +3,7 @@ package makarglavanar.com.github.gitc.ui.issues.issue_info
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.activity_issue_info.*
 import makarglavanar.com.github.gitc.GitCApp
@@ -38,17 +35,8 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
         issue = intent.getSerializableExtra("issue") as Issue
         presenter.loadIssue(issue.getFormattedUrl())
         Log.d(TAG, issue.comments)
-        presenter.loadIssueComments(issue.getFormattedComments())
 
-        val layoutManager = LinearLayoutManager(this)
-        val decorator = DividerItemDecoration(this, layoutManager.orientation)
         RxView.clicks(backView).subscribe({ onBackPressed() })
-
-        issuesRecyclerView.layoutManager = layoutManager
-        issuesRecyclerView.addItemDecoration(decorator)
-
-        adapter = IssueCommentsAdapter(issue, Glide.with(this), this)
-        issuesRecyclerView.adapter = adapter
     }
 
     override fun onDestroy() {
@@ -64,7 +52,8 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
     }
 
     override fun showIssue(issue: Issue) {
-        issueTitleView.text = issue.title
+        Log.d(TAG, issue.body)
+        issueBodyView.text = issue.body
     }
 
     override fun showComments(comments: List<IssueComment>?) {
