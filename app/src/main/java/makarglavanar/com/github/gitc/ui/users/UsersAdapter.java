@@ -61,10 +61,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 			super(itemView);
 
 			loginView = (TextView) itemView.findViewById(R.id.loginView);
-			loginView.setOnClickListener(v -> listener.onClick(user));
-
 			imageView = (ImageView) itemView.findViewById(R.id.avatarView);
-			imageView.setOnClickListener(v -> listener.onClick(user));
+
+			itemView.setOnClickListener(v -> listener.onClick(user));
 		}
 
 		void bind(User user) {

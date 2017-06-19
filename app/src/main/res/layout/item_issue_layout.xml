@@ -2,7 +2,8 @@
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
-                                             android:layout_height="wrap_content">
+                                             android:layout_height="wrap_content"
+                                             android:background="?selectableItemBackground">
 
 	<com.devspark.robototextview.widget.RobotoTextView
 		android:id="@+id/titleView"
@@ -10,12 +11,12 @@
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="16dp"
 		android:layout_marginTop="8dp"
+		android:textColor="@color/defaultBlackColor"
 		android:textSize="20sp"
 		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintRight_toRightOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:typeface="roboto_regular"
-		android:textColor="@color/defaultBlackColor"
 		tools:text="Windows"/>
 
 	<com.devspark.robototextview.widget.RobotoTextView

@@ -3,27 +3,28 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="72dp"
+              android:background="?selectableItemBackground"
               android:orientation="horizontal">
 
 	<com.devspark.robototextview.widget.RobotoTextView
 		android:id="@+id/nameView"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="8dp"
 		android:layout_weight="1"
 		android:gravity="center|left"
-		android:layout_marginTop="8dp"
-		android:layout_marginLeft="16dp"
-		android:textSize="20sp"
 		android:textColor="@color/defaultBlackColor"
+		android:textSize="20sp"
 		tools:text="RxJava2"/>
 
 	<com.devspark.robototextview.widget.RobotoTextView
 		android:id="@+id/updatedView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:gravity="bottom"
-		android:layout_marginTop="16dp"
 		android:layout_marginRight="8dp"
+		android:layout_marginTop="16dp"
+		android:gravity="bottom"
 		tools:text="2017:20:19"/>
 
 </LinearLayout>
