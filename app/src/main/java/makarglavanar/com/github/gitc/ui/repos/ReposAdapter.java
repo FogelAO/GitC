@@ -52,8 +52,8 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.ViewHolder> 
 		ViewHolder(View itemView, OnRepositoryClickListener listener) {
 			super(itemView);
 			nameView = (RobotoTextView) itemView.findViewById(R.id.nameView);
-			nameView.setOnClickListener(v -> listener.onClick(repository));
 			updatedView = (RobotoTextView) itemView.findViewById(R.id.updatedView);
+			itemView.setOnClickListener(v -> listener.onClick(repository));
 		}
 
 		void bind(Repository repository) {

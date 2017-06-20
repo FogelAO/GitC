@@ -14,63 +14,61 @@ import makarglavanar.com.github.gitc.R;
 import makarglavanar.com.github.gitc.entities.Issue;
 
 public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder> {
-    private final OnIssueClickListener listener;
-    private List<Issue> issues;
+	private final OnIssueClickListener listener;
+	private List<Issue> issues;
 
-    public IssuesAdapter(OnIssueClickListener listener) {
-        this.issues = new ArrayList<>();
-        this.listener = listener;
-    }
+	public IssuesAdapter(OnIssueClickListener listener) {
+		this.issues = new ArrayList<>();
+		this.listener = listener;
+	}
 
-    public void add(List<Issue> issues) {
-        this.issues = issues;
-        notifyDataSetChanged();
-    }
+	public void add(List<Issue> issues) {
+		this.issues = issues;
+		notifyDataSetChanged();
+	}
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.item_issue_layout, parent, false);
-        return new ViewHolder(view);
-    }
+	@Override
+	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		View view = LayoutInflater
+				.from(parent.getContext())
+				.inflate(R.layout.item_issue_layout, parent, false);
+		return new ViewHolder(view);
+	}
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Issue issue = issues.get(position);
-        holder.bind(issue);
-    }
+	@Override
+	public void onBindViewHolder(ViewHolder holder, int position) {
+		Issue issue = issues.get(position);
+		holder.bind(issue);
+	}
 
-    @Override
-    public int getItemCount() {
-        return issues.size();
-    }
+	@Override
+	public int getItemCount() {
+		return issues.size();
+	}
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private Issue issue;
-        private RobotoTextView title;
-        private RobotoTextView userLoginView;
-        private RobotoTextView createdDayView;
+	class ViewHolder extends RecyclerView.ViewHolder {
+		private Issue issue;
+		private RobotoTextView title;
+		private RobotoTextView userLoginView;
+		private RobotoTextView createdDayView;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            title = (RobotoTextView) itemView.findViewById(R.id.titleView);
-            title.setOnClickListener(v -> listener.onclick(issue));
-            userLoginView = (RobotoTextView) itemView.findViewById(R.id.userLogin);
-            userLoginView.setOnClickListener(v -> listener.onclick(issue));
-            createdDayView = (RobotoTextView) itemView.findViewById(R.id.createdDay);
-            createdDayView.setOnClickListener(v -> listener.onclick(issue));
-        }
+		ViewHolder(View itemView) {
+			super(itemView);
+			title = (RobotoTextView) itemView.findViewById(R.id.titleView);
+			userLoginView = (RobotoTextView) itemView.findViewById(R.id.userLogin);
+			createdDayView = (RobotoTextView) itemView.findViewById(R.id.createdDay);
+			itemView.setOnClickListener(v -> listener.onclick(issue));
+		}
 
-        void bind(Issue issue) {
-            this.issue = issue;
-            title.setText(issue.getTitle());
-            userLoginView.setText(issue.getUser().getLogin());
-            createdDayView.setText(issue.getDate());
-        }
-    }
+		void bind(Issue issue) {
+			this.issue = issue;
+			title.setText(issue.getTitle());
+			userLoginView.setText(issue.getUser().getLogin());
+			createdDayView.setText(issue.getDate());
+		}
+	}
 
-    interface OnIssueClickListener {
-        void onclick(Issue issue);
-    }
+	interface OnIssueClickListener {
+		void onclick(Issue issue);
+	}
 }
