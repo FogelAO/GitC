@@ -16,11 +16,10 @@ class RepoInfoPresenter(val view: View, val gitHubService: GitHubService) : Pres
         subscriptions.dispose()
     }
 
-    override fun loadRepo(url: String) {
-        Log.d(TAG, url)
+    override fun loadRepo(login: String, repo: String, path: String) {
         subscriptions.add(
                 gitHubService
-                        .getRepoFilesByUrl(url)
+                        .getRepoFiles(login, repo, path)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
@@ -38,7 +37,8 @@ class RepoInfoPresenter(val view: View, val gitHubService: GitHubService) : Pres
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 {
-                                    file -> view.showFile(file)
+                                    file ->
+                                    view.showFile(file)
                                 },
                                 { t -> view.showError(t) }
                         )

@@ -31,12 +31,9 @@ data class File(val name: String,
     }
 
     fun getRootPath(): String {
-        val urlWithoutBranch = url.split("?")[0]
         val countOfSLashes = path.count { c -> c == '/' }
-        val root = path.split("/")[countOfSLashes - 2]
-
-        val rootPath = urlWithoutBranch.replaceAfter("$root/", "")
-        return rootPath
+        val root = path.replaceAfter(path.split("/")[countOfSLashes - 1], "")
+        return root
     }
 
     fun getFormattedDirUrl(): String {

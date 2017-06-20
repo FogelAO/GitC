@@ -33,10 +33,10 @@ interface GitHubService {
     fun getIssueByUrl(@Path(value = "url", encoded = true) url: String): Single<Issue>
 
     @GET("repos/{url}")
-    fun getIssueCommentsByUrl(@Path(value = "url", encoded = true) urk: String): Single<List<IssueComment>?>
+    fun getIssueCommentsByUrl(@Path(value = "url", encoded = true) url: String): Single<List<IssueComment>?>
 
-    @GET("repos/{url}/contents")
-    fun getRepoFilesByUrl(@Path(value = "url", encoded = true) url: String): Single<List<File>>
+    @GET("repos/{login}/{repo}/contents/{path}")
+    fun getRepoFiles(@Path("login") name: String, @Path("repo") repo: String, @Path("path") path: String): Single<List<File>>
 
     @GET("repos/{url}?ref=master")
     fun getFileByUrl(@Path(value = "url", encoded = true) url: String): Single<File>

@@ -1,5 +1,7 @@
 package makarglavanar.com.github.gitc.ui.repos.repo_info
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
@@ -25,17 +27,19 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
     @Inject lateinit var gitHubService: GitHubService
     private lateinit var presenter: Presenter
     private lateinit var repository: Repository
+    private lateinit var file: File
     lateinit var adapter: FilesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         GitCApp.appComponent.inject(this)
         presenter = RepoInfoPresenter(this, gitHubService)
+
         setContentView(R.layout.activity_repo_info)
+
         repository = intent.getSerializableExtra("repo") as Repository
-        Log.d(TAG, repository.url)
-        presenter.loadRepo(repository.getFormattedUrl())
-        Log.d(TAG, "presenter.loadRepo()")
+
+        presenter.loadRepo(repository.owner.login, repository.name, "")
 
         val layoutManager = LinearLayoutManager(this)
         val decorator = DividerItemDecoration(this, layoutManager.orientation)
@@ -49,7 +53,11 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        if (!file.isRoot()) {
+            presenter.loadRepo(repository.owner.login, repository.name, file.getRootPath())
+        } else {
+            super.onBackPressed()
+        }
     }
 
     override fun onDestroy() {
@@ -65,6 +73,7 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
 
 
     override fun showContents(contents: List<File>) {
+        file = contents[0]
         reposInfoListView.visibility = VISIBLE
         fileContent.visibility = GONE
         Log.d(TAG, contents.toString() + contents.size)
@@ -80,11 +89,12 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
 
     override fun onClick(file: File) {
         Log.d(TAG, file.toString())
-        if (file.isFile()) {
-            presenter.loadFile(file.getFormattedFileUrl())
-        } else {
-            presenter.loadRepo(file.getFormattedDirUrl())
-        }
+        presenter.loadRepo(repository.owner.login, repository.name, file.path)
+//        if (file.isFile()) {
+//            presenter.loadFile(file.getFormattedFileUrl())
+//        } else {
+//            presenter.loadRepo(repository.owner.login, repository.name, file.getRootPath())
+//        }
     }
 
 //    override fun showRepository(repository: Repository) {
@@ -106,5 +116,12 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
 
     companion object {
         val TAG: String = RepositoryInfoActivity::class.java.simpleName
+        val REPO_EXTRA = "repo"
+
+        fun startReposInfoActivity(context: Context, repository: Repository) {
+            val intent = Intent(context, RepositoryInfoActivity::class.java)
+            intent.putExtra(REPO_EXTRA, repository)
+            context.startActivity(intent)
+        }
     }
 }
