@@ -3,6 +3,8 @@ package makarglavanar.com.github.gitc.ui.issues.issue_info
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.activity_issue_info.*
@@ -24,7 +26,6 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
     private lateinit var presenter: Presenter
     @Inject lateinit var gitHubService: GitHubService
     private lateinit var issue: Issue
-    private lateinit var adapter: IssueCommentsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +34,15 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
         presenter = IssueInfoPresenter(this, gitHubService)
 
         issue = intent.getSerializableExtra("issue") as Issue
-        presenter.loadIssue(issue.getFormattedUrl())
+        presenter.loadIssueComments(issue.getFormattedComments())
         Log.d(TAG, issue.comments)
 
-        RxView.clicks(backView).subscribe({ onBackPressed() })
+        issuesRecyclerView.run {
+            layoutManager = LinearLayoutManager(this@IssueInfoActivity, LinearLayoutManager.VERTICAL, false)
+            addItemDecoration(DividerItemDecoration(this@IssueInfoActivity, LinearLayoutManager.VERTICAL))
+        }
+
+        RxView.clicks(backView).subscribe { onBackPressed() }
     }
 
     override fun onDestroy() {
@@ -53,16 +59,17 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
 
     override fun showIssue(issue: Issue) {
         Log.d(TAG, issue.body)
-        issueBodyView.text = issue.body
+        presenter.loadIssueComments(issue.getFormattedComments())
+//        issueBodyView.text = issue.body
     }
 
     override fun showComments(comments: List<IssueComment>?) {
         if (comments == null) {
             toast(getString(R.string.no_comments_info))
-            adapter.clear()
+            issuesRecyclerView.adapter = IssuesAdapter(issue, emptyList())
             return
         }
-        adapter.add(issue, comments)
+        issuesRecyclerView.adapter = IssuesAdapter(issue, comments)
     }
 
     override fun onClick(user: User) {

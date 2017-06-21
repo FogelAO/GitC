@@ -40,4 +40,7 @@ interface GitHubService {
 
     @GET("repos/{url}?ref=master")
     fun getFileByUrl(@Path(value = "url", encoded = true) url: String): Single<File>
+
+    @GET("users/{login}/followers")
+    fun getUserFollowers(@Path("login") login: String): Single<List<User>>
 }

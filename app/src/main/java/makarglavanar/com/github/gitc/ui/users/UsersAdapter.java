@@ -16,13 +16,12 @@ import java.util.List;
 import makarglavanar.com.github.gitc.R;
 import makarglavanar.com.github.gitc.entities.User;
 
-public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
-	private static final String TAG = UsersAdapter.class.getSimpleName();
+class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHolder> {
 	private List<User> users;
 	private final OnUserClickListener listener;
 	private final RequestManager imageRequestManager;
 
-	public UsersAdapter(RequestManager imageRequestManager, OnUserClickListener listener) {
+	UsersAdapter(RequestManager imageRequestManager, OnUserClickListener listener) {
 		this.listener = listener;
 		this.imageRequestManager = imageRequestManager;
 		users = new ArrayList<>();
@@ -34,15 +33,15 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 	}
 
 	@Override
-	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	public UsersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View view = LayoutInflater
 				.from(parent.getContext())
 				.inflate(R.layout.item_user_layout, parent, false);
-		return new ViewHolder(view, listener);
+		return new UsersViewHolder(view, listener);
 	}
 
 	@Override
-	public void onBindViewHolder(ViewHolder holder, int position) {
+	public void onBindViewHolder(UsersViewHolder holder, int position) {
 		User user = users.get(position);
 		holder.bind(user);
 	}
@@ -52,12 +51,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 		return users.size();
 	}
 
-	class ViewHolder extends RecyclerView.ViewHolder {
+	class UsersViewHolder extends RecyclerView.ViewHolder {
 		private TextView loginView;
 		private ImageView imageView;
 		User user;
 
-		ViewHolder(View itemView, OnUserClickListener listener) {
+		UsersViewHolder(View itemView, OnUserClickListener listener) {
 			super(itemView);
 
 			loginView = (TextView) itemView.findViewById(R.id.loginView);

@@ -62,12 +62,10 @@ public class IssueCommentsAdapter extends RecyclerView.Adapter<RecyclerView.View
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case 0:
-                Log.d("TAG", viewType + "");
                 View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_issue_body_layout, parent, false);
                 return new IssueViewHolder(view);
             case 1:
-                Log.d("TAG", viewType + "");
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_issue_comment, parent, false);
                 return new IssueCommentsViewHolder(view);
@@ -98,7 +96,7 @@ public class IssueCommentsAdapter extends RecyclerView.Adapter<RecyclerView.View
             super(itemView);
             loginView = (RobotoTextView) itemView.findViewById(R.id.userLogin);
             loginView.setOnClickListener(v -> listener.onClick(comment.getUser()));
-            bodyView = (RobotoTextView) itemView.findViewById(R.id.body);
+            bodyView = (RobotoTextView) itemView.findViewById(R.id.commentBodyView);
             dateView = (RobotoTextView) itemView.findViewById(R.id.createdDay);
             userAvatarView = (ImageView) itemView.findViewById(R.id.userAvatarView);
         }

@@ -21,14 +21,7 @@ data class File(val name: String,
         return tmpString
     }
 
-    fun isRoot(): Boolean {
-        val urlWithoutBranch = url.split("?")[0]
-        val clearPath = urlWithoutBranch.replaceAfter("contents/", "")
-        val filePath = clearPath + name
-
-        println(urlWithoutBranch == filePath)
-        return true
-    }
+    fun isRoot() = path == name
 
     fun getRootPath(): String {
         val countOfSLashes = path.count { c -> c == '/' }

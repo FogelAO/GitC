@@ -78,7 +78,7 @@ class UserInfoActivity : AppCompatActivity(), View {
 
     override fun showError(t: Throwable) {
         Log.w("Loading user error", t)
-        toast(R.string.error_loading_user_by_login.toString())
+        toast(getString(R.string.error_loading_user_by_login))
         onBackPressed()
     }
 

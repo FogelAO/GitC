@@ -8,11 +8,12 @@ import makarglavanar.com.github.gitc.ui.issues.issue_info.IssueInfoContract.Pres
 import makarglavanar.com.github.gitc.ui.issues.issue_info.IssueInfoContract.View
 import makarglavanar.com.github.gitc.web.GitHubService
 
-class IssueInfoPresenter(val view: View, val gitHubService: GitHubService) : Presenter {
+class IssueInfoPresenter(var view: View?, val gitHubService: GitHubService) : Presenter {
     val subscriptions = CompositeDisposable()
 
     override fun deattach() {
         subscriptions.dispose()
+        view = null
     }
 
     override fun loadIssue(url: String) {
@@ -22,8 +23,8 @@ class IssueInfoPresenter(val view: View, val gitHubService: GitHubService) : Pre
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { issue -> view.showIssue(issue) },
-                                { t -> view.showError(t) }
+                                { issue -> view?.showIssue(issue) },
+                                { t -> view?.showError(t) }
                         )
         )
     }
@@ -36,8 +37,8 @@ class IssueInfoPresenter(val view: View, val gitHubService: GitHubService) : Pre
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
-                                    { comments -> view.showComments(comments) },
-                                    { t -> view.showError(t) })
+                                    { comments -> view?.showComments(comments) },
+                                    { t -> view?.showError(t) })
             )
     }
 }

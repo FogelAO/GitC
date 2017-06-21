@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">EZ25 Git</string>
+	<string name="app_name" translatable="false">EZ25 Git</string>
     <string name="navigation_item_issues">Issues</string>
 	<string name="navigation_item_repos">Repos</string>
 	<string name="navigation_item_users">Users</string>
@@ -11,8 +11,11 @@
 	<string name="error_loading_users_by_login">Error occurred while loading users</string>
 	<string name="avatar">Avatar</string>
 	<string name="name">Name</string>
-	<string name="email">Email</string>
+	<string name="email" translatable="false">Email</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="no_comments_info">No comments</string>
+	<string name="error_loading_repo">Error loading repository</string>
+	<string name="log_in">Log In</string>
+	<string name="skip">Skip</string>
 </resources>

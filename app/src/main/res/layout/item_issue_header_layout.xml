@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+
+	<TextView
+		android:id="@+id/issueTitleView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:textSize="18sp"
+		tools:text="Windows"/>
+
+	<TextView
+		android:id="@+id/issueOwnerLoginView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="end"
+		android:layout_marginEnd="8dp"
+		android:textSize="16sp"
+		tools:text="Sko-Plus"/>
+
+	<TextView
+		android:id="@+id/issueBodyView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:paddingEnd="8dp"
+		android:paddingStart="16dp"
+		android:textSize="20sp"
+		tools:text="I can't even open the tool... there isn't a .exe file"/>
+
+	<TextView
+		android:id="@+id/issueStateView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:gravity="end"
+		android:textColor="@color/colorAccent"
+		tools:text="Open"/>
+
+</LinearLayout>

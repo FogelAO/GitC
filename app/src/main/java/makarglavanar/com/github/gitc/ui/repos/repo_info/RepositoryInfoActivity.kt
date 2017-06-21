@@ -39,8 +39,8 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
 
         repository = intent.getSerializableExtra("repo") as Repository
 
+        showLoading()
         presenter.loadRepo(repository.owner.login, repository.name, "")
-
         val layoutManager = LinearLayoutManager(this)
         val decorator = DividerItemDecoration(this, layoutManager.orientation)
         reposInfoListView.layoutManager = layoutManager
@@ -52,27 +52,22 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
                 .subscribe({ onBackPressed() })
     }
 
-    override fun onBackPressed() {
-        if (!file.isRoot()) {
-            presenter.loadRepo(repository.owner.login, repository.name, file.getRootPath())
-        } else {
-            super.onBackPressed()
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         presenter.deattach()
     }
 
     override fun showError(t: Throwable) {
+        stopLoading("")
         Log.w(TAG, "Loading repository error", t)
-        toast("Error loading repository")
+        toast(getString(R.string.error_loading_repo))
         onBackPressed()
     }
 
 
     override fun showContents(contents: List<File>) {
+        stopLoading("dir")
+        Log.d(TAG, contents.toString())
         file = contents[0]
         reposInfoListView.visibility = VISIBLE
         fileContent.visibility = GONE
@@ -81,20 +76,51 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
     }
 
     override fun showFile(file: File) {
+        stopLoading("file")
         reposInfoListView.visibility = GONE
         val valueDecoded = Base64.decode(file.content, Base64.DEFAULT)
+//        fileContent.loadMarkdown(String(valueDecoded))
         fileContent.text = String(valueDecoded)
         fileContent.visibility = VISIBLE
     }
 
     override fun onClick(file: File) {
+        showLoading()
         Log.d(TAG, file.toString())
-        presenter.loadRepo(repository.owner.login, repository.name, file.path)
-//        if (file.isFile()) {
-//            presenter.loadFile(file.getFormattedFileUrl())
-//        } else {
-//            presenter.loadRepo(repository.owner.login, repository.name, file.getRootPath())
-//        }
+        if (file.isFile()) {
+            presenter.loadFile(file.getFormattedFileUrl())
+        } else {
+            presenter.loadRepo(repository.owner.login, repository.name, file.path)
+        }
+    }
+
+    private fun showLoading() {
+        repoInfoprogressBar.visibility = VISIBLE
+        reposInfoListView.visibility = GONE
+        fileContent.visibility = GONE
+
+    }
+
+    private fun stopLoading(content: String) {
+        when (content) {
+            "" -> {
+                repoInfoprogressBar.visibility = GONE
+                reposInfoListView.visibility = GONE
+                fileContent.visibility = GONE
+            }
+
+            "file" -> {
+                repoInfoprogressBar.visibility = GONE
+                reposInfoListView.visibility = GONE
+                fileContent.visibility = VISIBLE
+            }
+
+            "dir" -> {
+                repoInfoprogressBar.visibility = GONE
+                reposInfoListView.visibility = VISIBLE
+                fileContent.visibility = GONE
+            }
+        }
     }
 
 //    override fun showRepository(repository: Repository) {
