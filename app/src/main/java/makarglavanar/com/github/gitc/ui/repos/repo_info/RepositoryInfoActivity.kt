@@ -97,8 +97,7 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
     private fun showLoading() {
         repoInfoprogressBar.visibility = VISIBLE
         reposInfoListView.visibility = GONE
-        fileContent.visibility = GONE
-
+        scrollingView.visibility = GONE
     }
 
     private fun stopLoading(content: String) {
@@ -106,19 +105,19 @@ class RepositoryInfoActivity : AppCompatActivity(), View, FilesAdapter.OnFileCli
             "" -> {
                 repoInfoprogressBar.visibility = GONE
                 reposInfoListView.visibility = GONE
-                fileContent.visibility = GONE
+                scrollingView.visibility = GONE
             }
 
             "file" -> {
                 repoInfoprogressBar.visibility = GONE
                 reposInfoListView.visibility = GONE
-                fileContent.visibility = VISIBLE
+                scrollingView.visibility = VISIBLE
             }
 
             "dir" -> {
                 repoInfoprogressBar.visibility = GONE
                 reposInfoListView.visibility = VISIBLE
-                fileContent.visibility = GONE
+                scrollingView.visibility = GONE
             }
         }
     }

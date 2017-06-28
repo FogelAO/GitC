@@ -18,4 +18,5 @@
 	<string name="followers">Подписчики</string>
 	<string name="skip">Пропустить</string>
 	<string name="log_in">Войти</string>
+	<string name="email">email</string>
 </resources>

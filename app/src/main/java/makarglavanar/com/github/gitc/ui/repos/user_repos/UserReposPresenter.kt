@@ -8,11 +8,12 @@ import makarglavanar.com.github.gitc.ui.repos.user_repos.UserReposScreenCotract.
 import makarglavanar.com.github.gitc.web.GitHubService
 
 
-class UserReposPresenter(val view: View, val gitHubService: GitHubService) : Presenter {
+class UserReposPresenter(var view: View?, val gitHubService: GitHubService) : Presenter {
     val subscriptions = CompositeDisposable()
 
     override fun deattach() {
         subscriptions.dispose()
+        view = null
     }
 
     override fun loadRepos(url: String) {
@@ -21,8 +22,8 @@ class UserReposPresenter(val view: View, val gitHubService: GitHubService) : Pre
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { repos -> view.showRepositories(repos) },
-                                { t -> view.showError(t) }
+                                { repos -> view?.showRepositories(repos) },
+                                { t -> view?.showError(t) }
                         )
         )
     }

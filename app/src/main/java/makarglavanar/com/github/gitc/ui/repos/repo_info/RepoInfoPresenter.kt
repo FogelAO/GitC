@@ -9,11 +9,12 @@ import makarglavanar.com.github.gitc.ui.repos.repo_info.RepoInfoScreenContract.V
 import makarglavanar.com.github.gitc.web.GitHubService
 
 
-class RepoInfoPresenter(val view: View, val gitHubService: GitHubService) : Presenter {
+class RepoInfoPresenter(var view: View?, val gitHubService: GitHubService) : Presenter {
     val subscriptions = CompositeDisposable()
 
     override fun deattach() {
         subscriptions.dispose()
+        view = null
     }
 
     override fun loadRepo(login: String, repo: String, path: String) {
@@ -23,8 +24,8 @@ class RepoInfoPresenter(val view: View, val gitHubService: GitHubService) : Pres
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                { files -> Log.d("TAG", files.toString()); view.showContents(files) },
-                                { t -> view.showError(t) }
+                                { files -> Log.d("TAG", files.toString()); view?.showContents(files) },
+                                { t -> view?.showError(t) }
                         ))
     }
 
@@ -38,9 +39,9 @@ class RepoInfoPresenter(val view: View, val gitHubService: GitHubService) : Pres
                         .subscribe(
                                 {
                                     file ->
-                                    view.showFile(file)
+                                    view?.showFile(file)
                                 },
-                                { t -> view.showError(t) }
+                                { t -> view?.showError(t) }
                         )
         )
     }

@@ -1,5 +1,6 @@
 package makarglavanar.com.github.gitc.ui;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,12 +24,12 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import makarglavanar.com.github.gitc.R;
+import makarglavanar.com.github.gitc.api.GithubSession;
 import makarglavanar.com.github.gitc.ui.base_tab.BaseMainFragment;
 import makarglavanar.com.github.gitc.ui.base_tab.Tab;
 
 public class MainActivity extends AppCompatActivity {
 	public static final String TAG = MainActivity.class.getSimpleName();
-	private static final String PREFERENCE = "github_prefs";
 
 	private final CompositeDisposable subscriptions = new CompositeDisposable();
 	private BaseMainFragment currentFragment;
@@ -42,8 +43,9 @@ public class MainActivity extends AppCompatActivity {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE, 0);
-		String token = sharedPreferences.getString("oauth_token", null);
+		SharedPreferences sharedPreferences = getSharedPreferences(GithubSession.SHARED, Context.MODE_PRIVATE);
+		String token = sharedPreferences.getString(GithubSession.API_ACCESS_TOKEN, null);
+
 		Toast.makeText(this, token, Toast.LENGTH_LONG).show();
 
 		searchView = (SearchView) findViewById(R.id.searchView);
@@ -96,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(charSequence -> currentFragment.load(charSequence.toString())));
 	}
-
-
 
 	@Override
 	protected void onDestroy() {

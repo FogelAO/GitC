@@ -8,8 +8,7 @@
 	<android.support.v7.widget.Toolbar
 		android:layout_width="match_parent"
 		android:layout_height="54dp"
-		android:theme="@style/MainToolbarTheme"
-		>
+		android:theme="@style/MainToolbarTheme">
 
 		<ImageView
 			android:id="@+id/backView"
@@ -49,9 +48,24 @@
 
 	</android.support.v7.widget.Toolbar>
 
+
+
+
 	<ScrollView
+		android:id="@+id/scrollingView"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		android:visibility="gone">
+
+		<!--<us.feras.mdv.MarkdownView-->
+		<!--android:id="@+id/fileContent"-->
+		<!--android:layout_width="match_parent"-->
+		<!--android:layout_height="wrap_content"-->
+		<!--android:layout_margin="18dp"-->
+		<!--android:textColor="@color/defaultBlackColor"-->
+		<!--android:textSize="16sp"-->
+		<!--android:visibility="gone"-->
+		<!--app:typeface="roboto_regular"/>-->
 
 		<!--<us.feras.mdv.MarkdownView-->
 		<!--android:id="@+id/fileContent"-->
@@ -70,7 +84,6 @@
 			android:layout_margin="18dp"
 			android:textColor="@color/defaultBlackColor"
 			android:textSize="16sp"
-			android:visibility="gone"
 			app:typeface="roboto_regular"
 			tools:text="IyBDYWxjdWxhdG9yClZlcnkgc2ltcGxlIGV4YW1wbGUgb2YgbXkgZmlyc3Qg
 d29yayBmb3IgQW5kcm9pZAo="
@@ -93,7 +106,7 @@ d29yayBmb3IgQW5kcm9pZAo="
 		android:layout_gravity="center"
 		android:layout_marginTop="8dp"
 		android:indeterminate="true"
-		android:visibility="gone"/>
+		android:visibility="visible"/>
 
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/reposInfoListView"
