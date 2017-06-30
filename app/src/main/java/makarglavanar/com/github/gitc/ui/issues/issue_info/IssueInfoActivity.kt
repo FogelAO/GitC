@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_issue_info.*
 import makarglavanar.com.github.gitc.GitCApp
 import makarglavanar.com.github.gitc.R
@@ -26,6 +27,7 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
     private lateinit var presenter: Presenter
     @Inject lateinit var gitHubService: GitHubService
     private lateinit var issue: Issue
+    private val subscriptions = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +44,15 @@ class IssueInfoActivity : AppCompatActivity(), View, OnUserClickListener {
             addItemDecoration(DividerItemDecoration(this@IssueInfoActivity, LinearLayoutManager.VERTICAL))
         }
 
-        RxView.clicks(backView).subscribe { onBackPressed() }
+        subscriptions.add(
+                RxView.clicks(backView)
+                        .subscribe { onBackPressed() })
     }
 
     override fun onDestroy() {
         super.onDestroy()
         presenter.deattach()
+        subscriptions.dispose()
     }
 
 

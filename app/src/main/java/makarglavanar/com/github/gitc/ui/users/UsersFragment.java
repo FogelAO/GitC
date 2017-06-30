@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -111,9 +113,14 @@ public class UsersFragment extends BaseMainFragment<UsersView, UsersPresenter> i
 	}
 
 	@Override
-	public void onClick(User user) {
+	public void onClick(User user, View avatarView, View loginView) {
 		Intent intent = new Intent(getContext(), UserInfoActivity.class);
 		intent.putExtra("user", user);
-		startActivity(intent);
+		ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+				new Pair<>(avatarView, getString(R.string.avatar)),
+				new Pair<>(loginView, getString(R.string.login)));
+
+		startActivity(intent, options.toBundle());
 	}
+
 }

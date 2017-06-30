@@ -47,6 +47,7 @@ class UserInfoActivity : AppCompatActivity(), View {
         Glide.with(this)
                 .load(user.avatar_url)
                 .into(avatarView)
+
         toolbar.title = user.login
         nameView.text = user.name
         followersView.text = user.followers

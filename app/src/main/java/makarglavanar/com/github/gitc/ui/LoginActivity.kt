@@ -6,7 +6,9 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import com.crashlytics.android.Crashlytics
 import com.jakewharton.rxbinding2.view.RxView
+import io.fabric.sdk.android.Fabric
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_loign.*
 import makarglavanar.com.github.gitc.BuildConfig
@@ -27,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_loign)
         preferences = getSharedPreferences(GithubSession.SHARED, Context.MODE_PRIVATE)
 
