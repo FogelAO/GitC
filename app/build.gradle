@@ -25,9 +25,7 @@ android {
         }
 
         all {
-            buildConfigField "String", "CLIENT_ID", '"d5080392ac0549ece798"'
-            buildConfigField "String", "CLIENT_SECRET", '"47285e784eeb81a9e9a1595747750575bb5edc10"'
-            buildConfigField "String", "CALLBACK_URL", '"https://gitc-8fcb7.firebaseapp.com/__/auth/handler"'
+
         }
     }
     compileOptions {
