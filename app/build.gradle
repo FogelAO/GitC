@@ -25,7 +25,9 @@ android {
         }
 
         all {
-
+            buildConfigField "String", "CLIENT_ID", ''
+            buildConfigField "String", "CLIENT_SECRET", ''
+            buildConfigField "String", "CALLBACK_URL", ''
         }
     }
     compileOptions {
