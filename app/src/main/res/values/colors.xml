@@ -6,7 +6,7 @@
 	<color name="defaultSubtitleColor">#616161</color>
 	<color name="toolbarTitleTextColor">#FFFFFF</color>
 	<color name="colorNavigationBarBackground">#EFEFEF</color>
-	<color name="defaultBackground">#F7F7F7</color>
+	<color name="defaultBackground">#e6e4e4</color>
 	<color name="dividerLineColor">#cccccc</color>
 	<color name="coolGreenColor">#09825c</color>
 </resources>

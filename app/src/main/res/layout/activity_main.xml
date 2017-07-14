@@ -7,46 +7,19 @@
                                                  android:background="@color/defaultBackground"
                                                  tools:context=".ui.MainActivity">
 
-	<android.support.design.widget.AppBarLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
-
-		<android.support.v7.widget.Toolbar
-			android:id="@+id/toolbar"
-			android:layout_width="match_parent"
-			android:layout_height="54dp"
-			android:theme="@style/MainToolbarTheme"
-			android:weightSum="1">
-
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
-
-				<android.support.v7.widget.SearchView
-					android:id="@+id/searchView"
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1"/>
-
-				<ImageView
-					android:id="@+id/loginView"
-					android:layout_width="24dp"
-					android:layout_height="24dp"
-					android:layout_marginLeft="8dp"
-					android:layout_marginRight="8dp"
-					android:src="@drawable/ic_account_circle_black_24dp"
-					android:visibility="gone"/>
-
-			</LinearLayout>
-		</android.support.v7.widget.Toolbar>
-	</android.support.design.widget.AppBarLayout>
-
-	<FrameLayout
-		android:id="@+id/content"
+	<com.arlib.floatingsearchview.FloatingSearchView
+		android:id="@+id/searchView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginBottom="56dp"
-		app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+		app:floatingSearch_backgroundColor="@color/colorNavigationBarBackground"
+		app:floatingSearch_close_search_on_keyboard_dismiss="true"
+		app:floatingSearch_hintTextColor="@color/defaultSubtitleColor"
+		app:floatingSearch_leftActionColor="@color/defaultBlackColor"
+		app:floatingSearch_leftActionMode="showHamburger"
+		app:floatingSearch_searchBarMarginLeft="8dp"
+		app:floatingSearch_searchBarMarginRight="8dp"
+		app:floatingSearch_searchBarMarginTop="8dp"
+		app:floatingSearch_searchHint="@string/login"/>
 
 	<android.support.design.widget.BottomNavigationView
 		android:id="@+id/navigation"
@@ -68,5 +41,12 @@
 	</android.support.constraint.ConstraintLayout>
 
 	<include layout="@layout/bottom_sheet"/>
+
+	<FrameLayout
+		android:id="@+id/content"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginBottom="56dp"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

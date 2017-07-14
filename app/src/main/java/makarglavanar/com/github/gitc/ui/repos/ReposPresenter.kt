@@ -23,6 +23,7 @@ class ReposPresenter(val gitHubService: GitHubService) : MvpPresenter<ReposView>
     }
 
     override fun deattach() {
+        view = null
         subscriptions.dispose()
     }
 }

@@ -11,8 +11,7 @@ class UsersPresenter(val gitHubService: GitHubService) : MvpPresenter<UsersView>
     val subscriptions = CompositeDisposable()
 
     fun loadUsers(name: String) {
-        subscriptions.add(gitHubService
-                .getUsersByName(name)
+        subscriptions.add(gitHubService.getUsersByName(name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -23,5 +22,6 @@ class UsersPresenter(val gitHubService: GitHubService) : MvpPresenter<UsersView>
 
     override fun deattach() {
         subscriptions.dispose()
+        view = null
     }
 }

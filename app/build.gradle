@@ -25,7 +25,9 @@ android {
         }
 
         all {
-
+            buildConfigField "String", "CLIENT_ID", '"d5080392ac0549ece798"'
+            buildConfigField "String", "CLIENT_SECRET", '"47285e784eeb81a9e9a1595747750575bb5edc10"'
+            buildConfigField "String", "CALLBACK_URL", '"https://gitc-8fcb7.firebaseapp.com/__/auth/handler"'
         }
     }
     compileOptions {
@@ -37,9 +39,6 @@ android {
         exclude 'META-INF/NOTICE' // will not include NOTICE file
         exclude 'META-INF/LICENSE' // will not include LICENSE file
         exclude 'META-INF/rxjava.properties'
-        // as noted by @Vishnuvathsan you may also need to include
-        // variations on the file name. It depends on your dependencies.
-        // Some other common variations on notice and license file names
         exclude 'META-INF/notice'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/license'
@@ -59,6 +58,7 @@ dependencies {
     })
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "com.android.support:appcompat-v7:${supportVersion}"
+    compile "com.android.support:cardview-v7:${supportVersion}"
     compile "com.android.support:design:${supportVersion}"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -75,9 +75,9 @@ dependencies {
     compile "com.google.firebase:firebase-auth:${firebase}"
     compile "com.google.android.gms:play-services-auth:${firebase}"
     compile "com.google.firebase:firebase-core:${firebase}"
+    compile 'com.github.arimorty:floatingsearchview:2.1.1'
     testCompile 'junit:junit:4.12'
     kapt 'com.google.dagger:dagger-compiler:2.10'
-
 
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;

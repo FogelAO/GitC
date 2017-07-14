@@ -46,10 +46,6 @@ class RepoInfoPresenter(var view: View?, val gitHubService: GitHubService) : Pre
         )
     }
 
-//    override fun loadRepoFiles(url: String) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-
     companion object {
         val TAG: String = RepoInfoPresenter::class.java.simpleName
     }

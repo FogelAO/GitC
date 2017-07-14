@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,7 +15,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView;
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import java.util.concurrent.TimeUnit;
@@ -24,7 +23,8 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import makarglavanar.com.github.gitc.R;
-import makarglavanar.com.github.gitc.api.GithubSession;
+import makarglavanar.com.github.gitc.libs.RxFloatingSearchView;
+import makarglavanar.com.github.gitc.libs.git_auth.GithubSession;
 import makarglavanar.com.github.gitc.ui.base_tab.BaseMainFragment;
 import makarglavanar.com.github.gitc.ui.base_tab.Tab;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 	Toolbar toolbar;
 	BottomSheetBehavior bottomSheetBehavior;
 	FrameLayout contentView;
-	SearchView searchView;
+	FloatingSearchView searchView;
 	BottomNavigationView bottomNavigationView;
 
 	@Override
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
 		Toast.makeText(this, token, Toast.LENGTH_LONG).show();
 
-		searchView = (SearchView) findViewById(R.id.searchView);
+		searchView = (FloatingSearchView) findViewById(R.id.searchView);
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		contentView = (FrameLayout) findViewById(R.id.content);
 		bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
 			bottomNavigationView.setSelectedItemId(fragment.getTabItemId());
 		}
 
-		subscriptions.add(RxSearchView.queryTextChanges(searchView)
+
+		subscriptions.add(RxFloatingSearchView.queryChanges(searchView)
 				.debounce(300, TimeUnit.MILLISECONDS)
 				.filter(charSequence -> charSequence.length() > 1)
 				.doOnError(throwable -> Log.w(TAG, "Error occurred while searching", throwable))
@@ -122,17 +123,19 @@ public class MainActivity extends AppCompatActivity {
 		switch (menuItem.getItemId()) {
 			case R.id.users:
 				selectedTab = Tab.USERS;
+				searchView.setSearchHint("Login");
 				break;
 			case R.id.repos:
 				selectedTab = Tab.REPOS;
+				searchView.setSearchHint("Repository");
 				break;
 			case R.id.issues:
 				selectedTab = Tab.ISSUES;
+				searchView.setSearchHint("Issue");
 				break;
 			default:
 				throw new IllegalStateException("Unsupported tab " + menuItem.getTitle());
 		}
-		searchView.setIconified(true);
 		searchView.clearFocus();
 		currentFragment = BaseMainFragment.newInstance(selectedTab);
 		replaceOrSetContentFragment(currentFragment);

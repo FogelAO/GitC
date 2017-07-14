@@ -16,6 +16,6 @@
     <string name="password">Password</string>
     <string name="no_comments_info">No comments</string>
 	<string name="error_loading_repo">Error loading repository</string>
-	<string name="log_in">Log In</string>
+	<string name="log_in">Log in</string>
 	<string name="skip">Skip</string>
 </resources>

@@ -1,13 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_margin="8dp"
-              android:background="@color/defaultBackground"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:background="@color/toolbarTitleTextColor"
+                android:orientation="vertical">
 
 	<ImageView
+		android:id="@+id/logo"
 		android:layout_width="match_parent"
 		android:layout_height="320dp"
 		android:src="@drawable/logo_git"/>
@@ -16,28 +15,44 @@
 		android:id="@+id/buttonLogin"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="32dp"
-		android:layout_marginRight="32dp"
-		android:layout_marginTop="16dp"
+		android:layout_below="@id/logo"
 		android:background="@drawable/button_shape"
-		android:text="@string/log_in"
-		android:textColor="#ffffff"
-		android:textSize="18sp"
-		app:typeface="roboto_regular"/>
+		android:text="@string/log_in"/>
 
 	<com.devspark.robototextview.widget.RobotoButton
 		android:id="@+id/buttonSkip"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="32dp"
-		android:layout_marginRight="32dp"
-		android:layout_marginTop="16dp"
-		android:background="@drawable/button_shape"
-		android:backgroundTint="@color/defaultSubtitleColor"
-		android:text="@string/skip"
-		android:textColor="#ffffff"
-		android:textSize="18sp"
-		app:typeface="roboto_regular"
-		tools:targetApi="lollipop"/>
+		android:layout_alignParentBottom="true"
+		android:background="@color/toolbarTitleTextColor"
+		android:text="@string/skip"/>
 
-</LinearLayout>
+	<!--<com.devspark.robototextview.widget.RobotoButton-->
+	<!--android:id="@+id/buttonLogin"-->
+	<!--android:layout_width="match_parent"-->
+	<!--android:layout_height="wrap_content"-->
+	<!--android:layout_marginLeft="32dp"-->
+	<!--android:layout_marginRight="32dp"-->
+	<!--android:layout_marginTop="16dp"-->
+	<!--android:background="@drawable/button_shape"-->
+	<!--android:text="@string/log_in"-->
+	<!--android:textColor="#ffffff"-->
+	<!--android:textSize="18sp"-->
+	<!--app:typeface="roboto_regular"/>-->
+
+	<!--<com.devspark.robototextview.widget.RobotoButton-->
+	<!--android:id="@+id/buttonSkip"-->
+	<!--android:layout_width="match_parent"-->
+	<!--android:layout_height="wrap_content"-->
+	<!--android:layout_marginLeft="32dp"-->
+	<!--android:layout_marginRight="32dp"-->
+	<!--android:layout_marginTop="16dp"-->
+	<!--android:background="@drawable/button_shape"-->
+	<!--android:backgroundTint="@color/defaultSubtitleColor"-->
+	<!--android:text="@string/skip"-->
+	<!--android:textColor="#ffffff"-->
+	<!--android:textSize="18sp"-->
+	<!--app:typeface="roboto_regular"-->
+	<!--tools:targetApi="lollipop"/>-->
+
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package makarglavanar.com.github.gitc.api;
+package makarglavanar.com.github.gitc.libs.git_auth;
 
 import android.content.Context;
 import android.content.SharedPreferences;

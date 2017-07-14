@@ -11,6 +11,7 @@ class IssuesPresenter(val gitHubService: GitHubService) : MvpPresenter<IssuesVie
 
     override fun deattach() {
         subscriptions.dispose()
+        view = null
     }
 
     fun loadIssues(terms: String) {

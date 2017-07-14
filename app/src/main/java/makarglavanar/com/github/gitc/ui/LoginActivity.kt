@@ -13,8 +13,8 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_loign.*
 import makarglavanar.com.github.gitc.BuildConfig
 import makarglavanar.com.github.gitc.R
-import makarglavanar.com.github.gitc.api.GithubApp
-import makarglavanar.com.github.gitc.api.GithubSession
+import makarglavanar.com.github.gitc.libs.git_auth.GithubApp
+import makarglavanar.com.github.gitc.libs.git_auth.GithubSession
 import makarglavanar.com.github.gitc.toast
 
 class LoginActivity : AppCompatActivity() {
