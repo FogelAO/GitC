@@ -1,6 +1,5 @@
 package makarglavanar.com.github.gitc.ui.repos.user_repos
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
@@ -63,9 +62,10 @@ class UserReposActivity : AppCompatActivity(), View, OnRepositoryClickListener {
     }
 
     override fun onClick(repository: Repository) {
-        val intent = Intent(this, RepositoryInfoActivity::class.java)
-        intent.putExtra("repo", repository)
-        startActivity(intent)
+        RepositoryInfoActivity.Companion.startReposInfoActivity(this, repository)
+//        val intent = Intent(this, RepositoryInfoActivity::class.java)
+//        intent.putExtra("repo", repository)
+//        startActivity(intent)
     }
 
     companion object {

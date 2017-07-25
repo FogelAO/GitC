@@ -18,6 +18,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:fitsSystemWindows="true"
+			android:transitionName="@string/login"
 			app:contentScrim="?attr/colorPrimary"
 			app:expandedTitleMarginEnd="64dp"
 			app:expandedTitleMarginStart="48dp"
@@ -31,7 +32,9 @@
 				android:contentDescription="@string/avatar"
 				android:fitsSystemWindows="true"
 				android:scaleType="centerCrop"
-				app:layout_collapseMode="parallax"/>
+				android:transitionName="@string/avatar"
+				app:layout_collapseMode="parallax"
+				tools:targetApi="lollipop"/>
 
 			<android.support.v7.widget.Toolbar
 				android:id="@+id/main.toolbar"
@@ -71,9 +74,10 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_alignBottom="@id/nameIcon"
-				android:layout_marginLeft="64dp"
+				android:layout_marginStart="64dp"
 				android:layout_marginTop="24dp"
 				app:typeface="roboto_regular"
+				tools:targetApi="lollipop"
 				tools:text="Fogel Artem"/>
 
 			<ImageView
@@ -210,9 +214,9 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/followersView"
-				android:src="@drawable/ic_library_books_black_24dp"
+				android:layout_marginLeft="16dp"
 				android:layout_marginTop="16dp"
-				android:layout_marginLeft="16dp" />
+				android:src="@drawable/ic_library_books_black_24dp"/>
 
 			<com.devspark.robototextview.widget.RobotoTextView
 				android:id="@+id/reposCountView"

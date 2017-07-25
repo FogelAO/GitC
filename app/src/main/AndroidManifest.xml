@@ -1,7 +1,5 @@
 <manifest package="makarglavanar.com.github.gitc"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          android:versionCode="2"
-          android:versionName="1.0.1">
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<application
@@ -14,6 +12,7 @@
 		android:theme="@style/AppTheme">
 		<activity
 			android:name=".ui.LoginActivity"
+			android:noHistory="true"
 			android:screenOrientation="portrait">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
@@ -36,6 +35,11 @@
 		<activity
 			android:name=".ui.MainActivity"
 			android:screenOrientation="portrait"/>
+
+		<meta-data
+			android:name="io.fabric.ApiKey"
+			android:value="d34d87397f6ce94959ac6cbcd9b396e58bfef217" />
+
 	</application>
 
 </manifest>

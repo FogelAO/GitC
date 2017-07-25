@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">EZ25 Git</string>
+	<string name="error_loading_user_by_login">Произошла ошибка во время загрузки пользователя</string>
+	<string name="password">Пароль</string>
+	<string name="login">Логин</string>
+	<string name="name">Имя</string>
+	<string name="navigation_item_issues">Проблемы</string>
+	<string name="navigation_item_repos">Репозитории</string>
+	<string name="navigation_item_users">Пользователи</string>
+	<string name="no_comments_info">Нет комментариев</string>
+	<string name="registered_at">Дата регистрации</string>
+	<string name="error_loading_repo">Произошла ошибка во время загрузки репозитория</string>
+	<string name="company">Компания</string>
+	<string name="avatar">Аватар</string>
+	<string name="error_loading_users_by_login">Произоршла ошибка во время загрузки пользователя</string>
+	<string name="location">Локация</string>
+	<string name="followers">Подписчики</string>
+	<string name="skip">Пропустить</string>
+	<string name="log_in">Войти</string>
+	<string name="email">email</string>
+</resources>

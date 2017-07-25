@@ -42,14 +42,17 @@ class IssuesFragment : BaseMainFragment<IssuesView, IssuesPresenter>(), IssuesVi
     override fun createPresenter() = IssuesPresenter(gitHubService)
 
     override fun load(request: String) {
+        showLoading(true)
         presenter.loadIssues(request)
     }
 
     override fun showIssues(issues: List<Issue>) {
+        showLoading(false)
         adapter.add(issues)
     }
 
     override fun showError(t: Throwable) {
+        showLoading(false)
         Log.w(TAG, "Loading issues error", t)
         toast("Error loading issues")
     }
@@ -58,6 +61,16 @@ class IssuesFragment : BaseMainFragment<IssuesView, IssuesPresenter>(), IssuesVi
         val intent = Intent(context, IssueInfoActivity::class.java)
         intent.putExtra("issue", issue)
         startActivity(intent)
+    }
+
+    private fun showLoading(show: Boolean) {
+        if (show) {
+            issuesProgressBar.visibility = View.VISIBLE
+            issuesRecyclerView.visibility = View.GONE
+        } else {
+            issuesProgressBar.visibility = View.GONE
+            issuesRecyclerView.visibility = View.VISIBLE
+        }
     }
 
     companion object {

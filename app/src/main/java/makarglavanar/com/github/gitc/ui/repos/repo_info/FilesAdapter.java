@@ -14,7 +14,7 @@ import java.util.List;
 import makarglavanar.com.github.gitc.R;
 import makarglavanar.com.github.gitc.entities.File;
 
-public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> {
+public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.FilesViewHolder> {
 	private List<File> files;
 	private final OnFileClickListener listener;
 
@@ -36,14 +36,14 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
 	}
 
 	@Override
-	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	public FilesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View vew = LayoutInflater.from(parent.getContext())
 				.inflate(R.layout.item_file_layout, parent, false);
-		return new ViewHolder(vew, listener);
+		return new FilesViewHolder(vew, listener);
 	}
 
 	@Override
-	public void onBindViewHolder(ViewHolder holder, int position) {
+	public void onBindViewHolder(FilesViewHolder holder, int position) {
 		File file = files.get(position);
 		holder.bind(file);
 	}
@@ -53,16 +53,16 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
 		return files.size();
 	}
 
-	class ViewHolder extends RecyclerView.ViewHolder {
+	class FilesViewHolder extends RecyclerView.ViewHolder {
 		private File file;
 		private RobotoTextView nameView;
 		private ImageView iconView;
 
-		ViewHolder(View itemView, OnFileClickListener listener) {
+		FilesViewHolder(View itemView, OnFileClickListener listener) {
 			super(itemView);
 			nameView = (RobotoTextView) itemView.findViewById(R.id.nameView);
-			nameView.setOnClickListener(v -> listener.onClick(file));
 			iconView = (ImageView) itemView.findViewById(R.id.iconView);
+			itemView.setOnClickListener(v -> listener.onClick(file));
 		}
 
 		void bind(File file) {

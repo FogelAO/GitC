@@ -48,14 +48,17 @@ class ReposFragment : BaseMainFragment<ReposView, ReposPresenter>(), ReposView, 
     override fun createPresenter() = ReposPresenter(gitHubService)
 
     override fun load(request: String) {
+        showLoading(true)
         presenter.loadRepos(request)
     }
 
     override fun showRepos(repos: List<Repository>) {
+        showLoading(false)
         adapter.add(repos)
     }
 
     override fun showError(t: Throwable) {
+        showLoading(false)
         Log.w(TAG, "Loading repos error", t)
         Toast.makeText(context, "Error Loading repositories", Toast.LENGTH_LONG).show()
 
@@ -65,6 +68,16 @@ class ReposFragment : BaseMainFragment<ReposView, ReposPresenter>(), ReposView, 
         val intent = Intent(context, RepositoryInfoActivity::class.java)
         intent.putExtra("repo", repository)
         startActivity(intent)
+    }
+
+    private fun showLoading(show: Boolean) {
+        if (show) {
+            progressBar.visibility = View.VISIBLE
+            reposListView.visibility = View.GONE
+        } else {
+            progressBar.visibility = View.GONE
+            reposListView.visibility = View.VISIBLE
+        }
     }
 
     companion object {

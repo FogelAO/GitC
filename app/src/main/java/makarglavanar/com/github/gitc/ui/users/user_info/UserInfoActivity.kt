@@ -47,6 +47,7 @@ class UserInfoActivity : AppCompatActivity(), View {
         Glide.with(this)
                 .load(user.avatar_url)
                 .into(avatarView)
+
         toolbar.title = user.login
         nameView.text = user.name
         followersView.text = user.followers
@@ -78,7 +79,7 @@ class UserInfoActivity : AppCompatActivity(), View {
 
     override fun showError(t: Throwable) {
         Log.w("Loading user error", t)
-        toast(R.string.error_loading_user_by_login.toString())
+        toast(getString(R.string.error_loading_user_by_login))
         onBackPressed()
     }
 

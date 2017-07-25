@@ -21,22 +21,12 @@ data class File(val name: String,
         return tmpString
     }
 
-    fun isRoot(): Boolean {
-        val urlWithoutBranch = url.split("?")[0]
-        val clearPath = urlWithoutBranch.replaceAfter("contents/", "")
-        val filePath = clearPath + name
-
-        println(urlWithoutBranch == filePath)
-        return true
-    }
+    fun isRoot() = path == name
 
     fun getRootPath(): String {
-        val urlWithoutBranch = url.split("?")[0]
         val countOfSLashes = path.count { c -> c == '/' }
-        val root = path.split("/")[countOfSLashes - 2]
-
-        val rootPath = urlWithoutBranch.replaceAfter("$root/", "")
-        return rootPath
+        val root = path.replaceAfter(path.split("/")[countOfSLashes - 1], "")
+        return root
     }
 
     fun getFormattedDirUrl(): String {

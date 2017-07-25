@@ -13,7 +13,7 @@ interface RepoInfoScreenContract {
 
     interface Presenter {
         fun deattach()
-        fun loadRepo(url: String)
+        fun loadRepo(login: String, repo: String, path: String)
         fun loadFile(url: String)
     }
 }
